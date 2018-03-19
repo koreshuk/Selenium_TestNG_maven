@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="msnowEntity.FdcWeatherEntity" table="fdc_weather" schema="msnow" catalog="ods_dev">
+        <id name="id" column="id"/>
+        <property name="municipalityId" column="municipality_id"/>
+        <property name="snowDateFrom" column="snow_date_from"/>
+        <property name="snowDateTo" column="snow_date_to"/>
+        <property name="iceDate" column="ice_date"/>
+        <property name="rainfall" column="rainfall"/>
+    </class>
+</hibernate-mapping>
