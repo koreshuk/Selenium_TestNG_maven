@@ -4,7 +4,7 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="odsEntity.FdcAsAddrobjEntity" table="fdc_as_addrobj" schema="ods" catalog="ods_dev">
+    <class name="db.odsEntity.FdcAsAddrobjEntity" table="fdc_as_addrobj" schema="ods" catalog="ods_dev">
         <id name="id" column="id"/>
         <property name="formalName" column="formal_name"/>
         <property name="regionCode" column="region_code"/>

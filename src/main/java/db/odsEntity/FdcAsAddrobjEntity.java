@@ -1,4 +1,4 @@
-package odsEntity;
+package db.odsEntity;
 
 import javax.persistence.*;
 import java.math.BigInteger;

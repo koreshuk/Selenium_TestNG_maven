@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 public class ReestrWeather extends WebDriverSettings {
 
     @Test //проверка тайтла таблицы страницы Реестра Погоды
-    public void ProverkaTitleWeather() {
+    public void proverkaTitleWeather() {
         driver.get("http://ods2.fors.ru:9090/dev/registry?2&code=registryForm&bk=ODH/MSNOW/Weather");
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         String titleWeather = driver.getTitle();
@@ -19,14 +19,14 @@ public class ReestrWeather extends WebDriverSettings {
     }
 
     @Test    //проверка наименования таблицы страницы Реестра Погоды
-            (dependsOnMethods = "ProverkaTitleWeather")
-    public void ProverkaNaimTableWeather(){
+            (dependsOnMethods = "proverkaTitleWeather")
+    public void proverkaNaimTableWeather(){
         WebElement naimKarto4kaPogodi1 = driver.findElement(By.xpath("//div[@class='tab-hdr clearfix']/h1"));
-        
+
         if (naimKarto4kaPogodi1.getText().equals("Погодные явления")){
             System.out.println("Реестр Погоды открыт");
         } else {
-            System.out.println("Реестр Погоды не открыт");
+            Assert.fail("Реестр Погоды открыт НЕ открыт");
         }
     }
 

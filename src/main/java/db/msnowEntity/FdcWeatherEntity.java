@@ -1,4 +1,4 @@
-package msnowEntity;
+package db.msnowEntity;
 
 import javax.persistence.*;
 import java.math.BigInteger;

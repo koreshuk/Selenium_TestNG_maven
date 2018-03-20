@@ -69,8 +69,4 @@ public class WebDriverSettings {
 
         driver.quit();
     }
-
-
-
-
 }
