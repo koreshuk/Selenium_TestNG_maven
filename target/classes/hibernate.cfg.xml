@@ -17,10 +17,10 @@
         <property name="swow_sql">true</property>
         <property name="hbm2ddl.auto">update</property>
         <property name="hibernate.temp.use_jdbc_metadata_defaults">false</property>
-        <mapping class="odsEntity.FdcAsAddrobjEntity"/>
-        <mapping resource="ods/fdcAsAddrobj.cfg.xml"/>
-        <mapping resource="msnow/fdcWeather.cfg.xml"/>
-        <mapping class="msnowEntity.FdcWeatherEntity"/>
+        <mapping class="db.odsEntity.FdcAsAddrobjEntity"/>
+        <mapping resource="db/ods/fdcAsAddrobj.cfg.xml"/>
+        <mapping resource="db/msnow/fdcWeather.cfg.xml"/>
+        <mapping class="db.msnowEntity.FdcWeatherEntity"/>
 
         <!-- <property name="connection.username"/> -->
         <!-- <property name="connection.password"/> -->
