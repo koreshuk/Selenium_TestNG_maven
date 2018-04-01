@@ -1,14 +1,13 @@
-package db.odsEntity;
+package ru.fors.ods3.base.domain;
 
 import javax.persistence.*;
-import java.math.BigInteger;
 import java.sql.Date;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "fdc_as_addrobj", schema = "ods", catalog = "ods_dev")
+@Table(name = "fdc_as_addrobj", schema = "ods")
 public class FdcAsAddrobjEntity {
-    private BigInteger id;
+    private Long id;
     private String formalName;
     private Integer regionCode;
     private Integer autoCode;
@@ -43,11 +42,11 @@ public class FdcAsAddrobjEntity {
 
     @Id
     @Column(name = "id")
-    public BigInteger getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

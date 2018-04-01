@@ -1,41 +1,41 @@
-package db.msnowEntity;
+package ru.fors.ods3.msnow.domain;
 
 import javax.persistence.*;
-import java.math.BigInteger;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "fdc_weather", schema = "msnow", catalog = "ods_dev")
+@Table(name = "fdc_weather", schema = "msnow")
 public class FdcWeatherEntity {
-    private BigInteger id;
-    private BigInteger municipalityId;
+
+    private Long id;
+    private Long municipalityId;
     private Timestamp snowDateFrom;
     private Timestamp snowDateTo;
     private Timestamp iceDate;
     private Integer rainfall;
 
     @Id
-    @Column(name = "id")
-    public BigInteger getId() {
+    @Column(name = "ID")
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     @Basic
-    @Column(name = "municipality_id")
-    public BigInteger getMunicipalityId() {
+    @Column(name = "MUNICIPALITY_ID")
+    public Long getMunicipalityId() {
         return municipalityId;
     }
 
-    public void setMunicipalityId(BigInteger municipalityId) {
+    public void setMunicipalityId(Long municipalityId) {
         this.municipalityId = municipalityId;
     }
 
     @Basic
-    @Column(name = "snow_date_from")
+    @Column(name = "SNOW_DATE_FROM")
     public Timestamp getSnowDateFrom() {
         return snowDateFrom;
     }
@@ -45,7 +45,7 @@ public class FdcWeatherEntity {
     }
 
     @Basic
-    @Column(name = "snow_date_to")
+    @Column(name = "SNOW_DATE_TO")
     public Timestamp getSnowDateTo() {
         return snowDateTo;
     }
@@ -55,7 +55,7 @@ public class FdcWeatherEntity {
     }
 
     @Basic
-    @Column(name = "ice_date")
+    @Column(name = "ICE_DATE")
     public Timestamp getIceDate() {
         return iceDate;
     }
@@ -65,7 +65,7 @@ public class FdcWeatherEntity {
     }
 
     @Basic
-    @Column(name = "rainfall")
+    @Column(name = "RAINFALL")
     public Integer getRainfall() {
         return rainfall;
     }
