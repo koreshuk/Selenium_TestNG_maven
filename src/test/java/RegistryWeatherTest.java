@@ -39,7 +39,7 @@ public class RegistryWeatherTest extends WebDriverSettings {
     }
 
     /// TODO-- все что ниже не смотрел, но нужно переделать (в чатности наименование и константы) как сделано выще.
-    //region : Bad code
+
 
     @Test(dependsOnMethods = "checkTableTitle")// кнопка тайтла Создать
     public void checkButtonCreate() {
@@ -80,7 +80,7 @@ public class RegistryWeatherTest extends WebDriverSettings {
     }
 
     @Test (dependsOnMethods = "checkButtonObjectCreate")//Проверка доступности кнопки Создать на карточке
-    public void checkEnableObjectCreate() {
+    public void enableObjectCreate() {
         getWhenVisible(By.xpath("//button[@class='btn btn-default btn-no-brd btn-blue']"),20).isDisplayed();
         WebElement enableBtnObjectCreate = driver.findElement(By.xpath("//button[@name='innerPanel:buttonsPanel:saveBtn']"));
         if (enableBtnObjectCreate.isEnabled()) {
@@ -90,7 +90,7 @@ public class RegistryWeatherTest extends WebDriverSettings {
         }
     }
 
-    @Test (dependsOnMethods = "checkEnableObjectCreate") //Проверка наличия кнопки Закрыть и её тайтла
+    @Test (dependsOnMethods = "enableObjectCreate") //Проверка наличия кнопки Закрыть и её тайтла
     public void buttonObjectClose() {
         getWhenVisible(By.xpath("//button[@class='btn btn-default btn-no-brd btn-blue']"),20).isDisplayed();
         WebElement buttonObjectClose = driver.findElement(By.xpath("//div[@class='btn-group']/button[2]"));
@@ -102,15 +102,35 @@ public class RegistryWeatherTest extends WebDriverSettings {
     }
 
     @Test (dependsOnMethods = "buttonObjectClose")//Проверка доступности кнопки Закрыть
-    public void enableObjectClose() {
+    public void enableButtonObjectClose() {
         getWhenVisible(By.xpath("//button[@class='btn btn-default btn-no-brd btn-blue']"),20).isDisplayed();
-        WebElement enableBtnObjectClose = driver.findElement(By.xpath("//div[@class='btn-group']/button[2]"));
-        if (enableBtnObjectClose.isEnabled()) {
+        WebElement enableButtonObjectClose = driver.findElement(By.xpath("//div[@class='btn-group']/button[2]"));
+        if (enableButtonObjectClose.isEnabled()) {
             System.out.println("Кнопка Закрыть активна");
         } else {
             Assert.fail("Кнопка Закрыть залочена");
         }
     }
 
-    //endregion
+    @Test (dependsOnMethods = "enableButtonObjectClose") //Проверка наличия обязательных сообщений Район и Дата начала
+    public void checkMandatoryWarnings(){
+
+        WebElement buttonObjectCreate = driver.findElement(By.xpath("//*[@name='innerPanel:buttonsPanel:saveBtn']"));
+        buttonObjectCreate.click();
+        getWhenVisible(By.xpath("//div[@class='alert alert-danger alert-custom alert-relative']"),20).isDisplayed();
+        WebElement chekRegionWaringMessage = driver.findElement(By.xpath("//ul[@class='feedbackPanel']/li[position()=1]/span"));
+        if (chekRegionWaringMessage.getText().equals("Поле 'Район' обязательно для заполнения")){
+            System.out.println("Верно - Поле 'Район' обязательно для заполнения");
+        } else {
+            Assert.fail("НЕ верно - Поле 'Район' обязательно для заполнения");
+        }
+
+        WebElement checkDateWarningMessage = driver.findElement(By.xpath("//ul[@class='feedbackPanel']/li[position()=2]/span"));
+        if (checkDateWarningMessage.getText().equals("Поле 'Дата начала снегопада' обязательно для заполнения")) {
+            System.out.println("Верно - Поле 'Дата начала снегопада' обязательно для заполнения");
+        } else {
+            Assert.fail("НЕ верно - Поле 'Дата начала снегопада' обязательно для заполнения");
+        }
+    }
+
 }
