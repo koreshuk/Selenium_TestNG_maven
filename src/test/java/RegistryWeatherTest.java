@@ -42,34 +42,34 @@ public class RegistryWeatherTest extends WebDriverSettings {
     //region : Bad code
 
     @Test(dependsOnMethods = "checkTableTitle")// кнопка тайтла Создать
-    public void buttonCreate() {
+    public void checkButtonCreate() {
         getWhenVisible(By.xpath("//button[@class='btn btn-default btn-no-brd btn-blue']"),20).isDisplayed();
 
-        WebElement buttonNewCreate = driver.findElement(By.xpath("//button[@class='btn btn-default btn-no-brd btn-blue']"));
+        WebElement checkButtonCreate = driver.findElement(By.xpath("//button[@class='btn btn-default btn-no-brd btn-blue']"));
 
-        if (buttonNewCreate.getText().equals("ДОБАВИТЬ")) {
+        if (checkButtonCreate.getText().equals("ДОБАВИТЬ")) {
             System.out.println("Кнопка Добавить присутствует. Надпись соответствует");
         } else {
             Assert.fail("Кнопка Добавить присутствует. Надпись НЕ соответствует");
         }
     }
 
-    @Test (dependsOnMethods = "buttonCreate")// нажатие на кнопку и открытие карточки Погоды
-    public void buttonCreateClick() {
+    @Test (dependsOnMethods = "checkButtonCreate")// нажатие на кнопку и открытие карточки Погоды
+    public void checkButtonCreateClick() {
 
-        WebElement buttonCreate = driver.findElement(By.xpath("//button[@class='btn btn-default btn-no-brd btn-blue']"));
-        buttonCreate.click();
+        WebElement checkButtonCreate = driver.findElement(By.xpath("//button[@class='btn btn-default btn-no-brd btn-blue']"));
+        checkButtonCreate.click();
         getWhenVisible(By.xpath("//div[@class='tab-hdr']"),20).isDisplayed();
-        WebElement titleObjectweather = driver.findElement(By.xpath("//div[@class='tab-hdr']/h1"));
-        if (titleObjectweather.getText().equals("Данные погодных явлений")) {
+        WebElement titleObjectWeather = driver.findElement(By.xpath("//div[@class='tab-hdr']/h1"));
+        if (titleObjectWeather.getText().equals("Данные погодных явлений")) {
             System.out.println("Карточка на создание открыта");
         } else {
             Assert.fail("Карточка не открылась");
         }
     }
 
-    @Test (dependsOnMethods = "buttonCreateClick")//Проверка наличия кнопки Создать и её тайтла
-    public void buttonObjectCreate() {
+    @Test (dependsOnMethods = "checkButtonCreateClick")//Проверка наличия кнопки Создать и её тайтла на карточке
+    public void checkButtonObjectCreate() {
         getWhenVisible(By.xpath("//button[@class='btn btn-default btn-no-brd btn-blue']"),20).isDisplayed();
         WebElement buttonObjectCreate = driver.findElement(By.xpath("//button[@name='innerPanel:buttonsPanel:saveBtn']"));
         if (buttonObjectCreate.getText().equals("СОЗДАТЬ")) {
@@ -79,8 +79,8 @@ public class RegistryWeatherTest extends WebDriverSettings {
         }
     }
 
-    @Test (dependsOnMethods = "buttonCreateClick")//Проверка доступности кнопки Создать
-    public void enableObjectCreate() {
+    @Test (dependsOnMethods = "checkButtonObjectCreate")//Проверка доступности кнопки Создать на карточке
+    public void checkEnableObjectCreate() {
         getWhenVisible(By.xpath("//button[@class='btn btn-default btn-no-brd btn-blue']"),20).isDisplayed();
         WebElement enableBtnObjectCreate = driver.findElement(By.xpath("//button[@name='innerPanel:buttonsPanel:saveBtn']"));
         if (enableBtnObjectCreate.isEnabled()) {
@@ -90,7 +90,7 @@ public class RegistryWeatherTest extends WebDriverSettings {
         }
     }
 
-    @Test (dependsOnMethods = "buttonCreateClick") //Проверка наличия кнопки Закрыть и её тайтла
+    @Test (dependsOnMethods = "checkEnableObjectCreate") //Проверка наличия кнопки Закрыть и её тайтла
     public void buttonObjectClose() {
         getWhenVisible(By.xpath("//button[@class='btn btn-default btn-no-brd btn-blue']"),20).isDisplayed();
         WebElement buttonObjectClose = driver.findElement(By.xpath("//div[@class='btn-group']/button[2]"));
@@ -101,7 +101,7 @@ public class RegistryWeatherTest extends WebDriverSettings {
         }
     }
 
-    @Test (dependsOnMethods = "buttonCreateClick")//Проверка доступности кнопки Закрыть
+    @Test (dependsOnMethods = "buttonObjectClose")//Проверка доступности кнопки Закрыть
     public void enableObjectClose() {
         getWhenVisible(By.xpath("//button[@class='btn btn-default btn-no-brd btn-blue']"),20).isDisplayed();
         WebElement enableBtnObjectClose = driver.findElement(By.xpath("//div[@class='btn-group']/button[2]"));
