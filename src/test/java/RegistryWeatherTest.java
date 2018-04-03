@@ -3,6 +3,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.fors.ods3.msnow.domain.FdcWeatherEntity;
+import sun.awt.windows.WBufferStrategy;
 
 public class RegistryWeatherTest extends WebDriverSettings {
 
@@ -37,9 +38,6 @@ public class RegistryWeatherTest extends WebDriverSettings {
             System.out.println("Сущность подтянулась");
         }
     }
-
-    /// TODO-- все что ниже не смотрел, но нужно переделать (в чатности наименование и константы) как сделано выще.
-
 
     @Test(dependsOnMethods = "checkTableTitle")// кнопка тайтла Создать
     public void checkButtonCreate() {
@@ -118,8 +116,8 @@ public class RegistryWeatherTest extends WebDriverSettings {
         WebElement buttonObjectCreate = driver.findElement(By.xpath("//*[@name='innerPanel:buttonsPanel:saveBtn']"));
         buttonObjectCreate.click();
         getWhenVisible(By.xpath("//div[@class='alert alert-danger alert-custom alert-relative']"),20).isDisplayed();
-        WebElement chekRegionWaringMessage = driver.findElement(By.xpath("//ul[@class='feedbackPanel']/li[position()=1]/span"));
-        if (chekRegionWaringMessage.getText().equals("Поле 'Район' обязательно для заполнения")){
+        WebElement checkRegionWaringMessage = driver.findElement(By.xpath("//ul[@class='feedbackPanel']/li[position()=1]/span"));
+        if (checkRegionWaringMessage.getText().equals("Поле 'Район' обязательно для заполнения")){
             System.out.println("Верно - Поле 'Район' обязательно для заполнения");
         } else {
             Assert.fail("НЕ верно - Поле 'Район' обязательно для заполнения");
@@ -133,4 +131,56 @@ public class RegistryWeatherTest extends WebDriverSettings {
         }
     }
 
+    @Test (dependsOnMethods = "checkMandatoryWarnings") //Проверка закрытия блока обязательных сообщений
+    public void checkCloseAlertPanel() {
+        getWhenVisible(By.xpath("//div[@class='alert alert-danger alert-custom alert-relative']"),20).isDisplayed();
+        WebElement alertPanel =  driver.findElement(By.xpath("//div[@class='alert alert-danger alert-custom alert-relative']/a[@title='Закрыть']"));
+        alertPanel.click();
+        System.out.println("Блок обязательных сообщений закрыт");
+    }
+
+    @Test (dependsOnMethods = "checkCloseAlertPanel") //проверка когда дата начала > даты окончания
+    public void checkFieldSnowDate(){
+
+        driver.findElement(By.xpath("//*[@name='innerPanel:snowDateFrom']")).sendKeys("22.02.2018 23:16");
+        driver.findElement(By.xpath("//*[@name='innerPanel:snowDateTo']")).sendKeys("22.02.2018 23:10");
+
+        WebElement clickCreateBtn = driver.findElement(By.xpath("//*[@name='innerPanel:buttonsPanel:saveBtn']")); //нажатие кропки Создать
+        clickCreateBtn.click();
+        getWhenVisible(By.xpath("//ul[@class='feedbackPanel']/li[position()=2]/span"),20).isDisplayed();
+        WebElement alertSnowDatePanel=driver.findElement(By.xpath("//ul[@class='feedbackPanel']/li[position()=2]/span"));
+
+            if (alertSnowDatePanel.getText().equals("'Дата окончания снегопада' не может быть раньше 'Дата начала снегопада'")) {
+                System.out.println("Верно - 'Дата окончания снегопада' не может быть раньше 'Дата начала снегопада'");
+            } else {
+                Assert.fail("Не верно - 'Дата окончания снегопада' не может быть раньше 'Дата начала снегопада'");
+            }
+        driver.findElement(By.xpath("//button[@class='btn btn-default btn-no-brd btn-blue']/span[text()='Закрыть']")).click(); // закрытие карточки
+    }
+
+   @Test (dependsOnMethods = "checkFieldSnowDate") // проверка вводе невалидных символов в дату
+    public void checkFieldSnowDateNotValid() {
+        getWhenVisible(By.xpath("//button[text()='Добавить']"),20).isDisplayed();
+        driver.findElement(By.xpath("//button[text()='Добавить']")).click(); // открытие на создание карточки
+        getWhenVisible(By.xpath("//input[@name='innerPanel:snowDateFrom']"),20).isDisplayed();
+        driver.findElement(By.xpath("//input[@name='innerPanel:snowDateFrom']")).sendKeys("ДД.ММ.20ГГ 23:16");
+        driver.findElement(By.xpath("//*[@name='innerPanel:snowDateTo']")).sendKeys("ДД.ММ.8ГГГ 23:16");
+        driver.findElement(By.xpath("//*[@name='innerPanel:buttonsPanel:saveBtn']")).click();
+        getWhenVisible(By.xpath("//ul[@class='feedbackPanel']"),20).isDisplayed();
+
+
+         WebElement alertSnowDateFrom = driver.findElement(By.xpath("//ul[@class='feedbackPanel']/li[position()=1]/span"));
+            if (alertSnowDateFrom.getText().equals("'Дата начала снегопада' должно соответствовать формату ДД.MM.ГГГГ ЧЧ:ММ.")) {
+                System.out.println("Верно - 'Дата начала снегопада' должно соответствовать формату ДД.MM.ГГГГ ЧЧ:ММ.");
+            } else {
+                Assert.fail("НЕ верно - 'Дата начала снегопада' должно соответствовать формату ДД.MM.ГГГГ ЧЧ:ММ.");
+            }
+
+        WebElement alertSnowDateTo = driver.findElement(By.xpath("//ul[@class='feedbackPanel']/li[position()=2]/span"));
+            if (alertSnowDateTo.getText().equals("'Дата окончания снегопада' должно соответствовать формату ДД.MM.ГГГГ ЧЧ:ММ.")) {
+                System.out.println("Верно - 'Дата окончания снегопада' должно соответствовать формату ДД.MM.ГГГГ ЧЧ:ММ.");
+            } else {
+                Assert.fail("НЕ верно- 'Дата окончания снегопада' должно соответствовать формату ДД.MM.ГГГГ ЧЧ:ММ.");
+            }
+    }
 }
