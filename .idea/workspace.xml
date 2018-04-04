@@ -43,14 +43,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RegistryWeatherTest.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="RegistryWeatherTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/RegistryWeatherTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="748">
-              <caret line="186" column="0" lean-forward="true" selection-start-line="186" selection-start-column="0" selection-end-line="186" selection-end-column="0" />
+            <state relative-caret-position="451">
+              <caret line="230" column="0" lean-forward="true" selection-start-line="230" selection-start-column="0" selection-end-line="230" selection-end-column="0" />
               <folding>
                 <element signature="method#checkTableTitle#0;class#RegistryWeatherTest#0" expanded="false" />
                 <element signature="method#checkConnectionDB#0;class#RegistryWeatherTest#0" expanded="false" />
+                <element signature="method#checkButtonCreate#0;class#RegistryWeatherTest#0" expanded="false" />
                 <element signature="method#checkButtonCreateClick#0;class#RegistryWeatherTest#0" expanded="false" />
                 <element signature="method#checkButtonObjectCreate#0;class#RegistryWeatherTest#0" expanded="false" />
                 <element signature="method#enableObjectCreate#0;class#RegistryWeatherTest#0" expanded="false" />
@@ -58,6 +59,10 @@
                 <element signature="method#enableButtonObjectClose#0;class#RegistryWeatherTest#0" expanded="false" />
                 <element signature="method#checkMandatoryWarnings#0;class#RegistryWeatherTest#0" expanded="false" />
                 <element signature="method#checkCloseAlertPanel#0;class#RegistryWeatherTest#0" expanded="false" />
+                <element signature="method#checkFieldSnowDate#0;class#RegistryWeatherTest#0" expanded="false" />
+                <element signature="method#checkFieldSnowDateNotValid#0;class#RegistryWeatherTest#0" expanded="false" />
+                <element signature="method#checkNotValidRainFall#0;class#RegistryWeatherTest#0" expanded="false" />
+                <element signature="method#checkObjectCreation#0;class#RegistryWeatherTest#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -73,10 +78,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WebDriverSettings.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="WebDriverSettings.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/WebDriverSettings.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
+            <state relative-caret-position="400">
               <caret line="84" column="7" lean-forward="false" selection-start-line="84" selection-start-column="7" selection-end-line="84" selection-end-column="7" />
               <folding />
             </state>
@@ -120,8 +125,8 @@
         <option value="$PROJECT_DIR$/src/main/java/HibernateSessionFactory.java" />
         <option value="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" />
         <option value="$PROJECT_DIR$/src/test/java/ReestrWeather.java" />
-        <option value="$PROJECT_DIR$/src/test/java/WebDriverSettings.java" />
         <option value="$PROJECT_DIR$/src/test/java/RegistryWeatherTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/WebDriverSettings.java" />
       </list>
     </option>
   </component>
@@ -409,7 +414,7 @@
       <workItem from="1521584100310" duration="3806000" />
       <workItem from="1522594907019" duration="273000" />
       <workItem from="1522691728952" duration="7087000" />
-      <workItem from="1522790328489" duration="8182000" />
+      <workItem from="1522790328489" duration="13881000" />
     </task>
     <task id="LOCAL-00001" summary="правки">
       <created>1522708889001</created>
@@ -425,46 +430,54 @@
       <option name="project" value="LOCAL" />
       <updated>1522710621245</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="правки">
+      <created>1522798574526</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1522798574526</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="RegistryWeatherTest - 2018.04.04 at 02h 24m 49s.xml">
+    <history-entry file="RegistryWeatherTest - 2018.04.05 at 02h 30m 24s.xml">
       <configuration name="RegistryWeatherTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RegistryWeatherTest - 2018.04.04 at 02h 26m 40s.xml">
+    <history-entry file="RegistryWeatherTest - 2018.04.05 at 02h 33m 16s.xml">
       <configuration name="RegistryWeatherTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RegistryWeatherTest - 2018.04.04 at 02h 27m 25s.xml">
+    <history-entry file="RegistryWeatherTest - 2018.04.05 at 02h 34m 20s.xml">
       <configuration name="RegistryWeatherTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RegistryWeatherTest - 2018.04.04 at 02h 28m 18s.xml">
+    <history-entry file="RegistryWeatherTest - 2018.04.05 at 02h 37m 10s.xml">
       <configuration name="RegistryWeatherTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RegistryWeatherTest - 2018.04.04 at 02h 29m 50s.xml">
+    <history-entry file="RegistryWeatherTest - 2018.04.05 at 02h 38m 34s.xml">
       <configuration name="RegistryWeatherTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RegistryWeatherTest - 2018.04.04 at 02h 30m 54s.xml">
+    <history-entry file="RegistryWeatherTest - 2018.04.05 at 02h 40m 46s.xml">
       <configuration name="RegistryWeatherTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RegistryWeatherTest - 2018.04.04 at 02h 32m 02s.xml">
+    <history-entry file="RegistryWeatherTest - 2018.04.05 at 02h 41m 48s.xml">
       <configuration name="RegistryWeatherTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RegistryWeatherTest - 2018.04.04 at 02h 32m 57s.xml">
+    <history-entry file="RegistryWeatherTest - 2018.04.05 at 02h 43m 23s.xml">
       <configuration name="RegistryWeatherTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RegistryWeatherTest - 2018.04.04 at 02h 35m 22s.xml">
+    <history-entry file="RegistryWeatherTest - 2018.04.05 at 02h 45m 15s.xml">
       <configuration name="RegistryWeatherTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RegistryWeatherTest - 2018.04.04 at 02h 35m 55s.xml">
+    <history-entry file="RegistryWeatherTest - 2018.04.05 at 02h 46m 17s.xml">
       <configuration name="RegistryWeatherTest" configurationId="TestNG" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29011000" />
+    <option name="totallyTimeSpent" value="34710000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1034" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="DB Execution Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -487,7 +500,7 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33073497" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33073497" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="FAQ Robot" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -515,7 +528,9 @@
     <option name="LAST_COMMIT_MESSAGE" value="правки" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
@@ -558,6 +573,7 @@
           <folding>
             <element signature="method#checkTableTitle#0;class#RegistryWeatherTest#0" expanded="false" />
             <element signature="method#checkConnectionDB#0;class#RegistryWeatherTest#0" expanded="false" />
+            <element signature="method#checkButtonCreate#0;class#RegistryWeatherTest#0" expanded="false" />
             <element signature="method#checkButtonCreateClick#0;class#RegistryWeatherTest#0" expanded="false" />
             <element signature="method#checkButtonObjectCreate#0;class#RegistryWeatherTest#0" expanded="false" />
             <element signature="method#enableObjectCreate#0;class#RegistryWeatherTest#0" expanded="false" />
@@ -565,6 +581,10 @@
             <element signature="method#enableButtonObjectClose#0;class#RegistryWeatherTest#0" expanded="false" />
             <element signature="method#checkMandatoryWarnings#0;class#RegistryWeatherTest#0" expanded="false" />
             <element signature="method#checkCloseAlertPanel#0;class#RegistryWeatherTest#0" expanded="false" />
+            <element signature="method#checkFieldSnowDate#0;class#RegistryWeatherTest#0" expanded="false" />
+            <element signature="method#checkFieldSnowDateNotValid#0;class#RegistryWeatherTest#0" expanded="false" />
+            <element signature="method#checkNotValidRainFall#0;class#RegistryWeatherTest#0" expanded="false" />
+            <element signature="method#checkObjectCreation#0;class#RegistryWeatherTest#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -687,21 +707,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/WebDriverSettings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="84" column="7" lean-forward="false" selection-start-line="84" selection-start-column="7" selection-end-line="84" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/RegistryWeatherTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="748">
-          <caret line="186" column="0" lean-forward="true" selection-start-line="186" selection-start-column="0" selection-end-line="186" selection-end-column="0" />
+        <state relative-caret-position="451">
+          <caret line="230" column="0" lean-forward="true" selection-start-line="230" selection-start-column="0" selection-end-line="230" selection-end-column="0" />
           <folding>
             <element signature="method#checkTableTitle#0;class#RegistryWeatherTest#0" expanded="false" />
             <element signature="method#checkConnectionDB#0;class#RegistryWeatherTest#0" expanded="false" />
+            <element signature="method#checkButtonCreate#0;class#RegistryWeatherTest#0" expanded="false" />
             <element signature="method#checkButtonCreateClick#0;class#RegistryWeatherTest#0" expanded="false" />
             <element signature="method#checkButtonObjectCreate#0;class#RegistryWeatherTest#0" expanded="false" />
             <element signature="method#enableObjectCreate#0;class#RegistryWeatherTest#0" expanded="false" />
@@ -709,7 +722,19 @@
             <element signature="method#enableButtonObjectClose#0;class#RegistryWeatherTest#0" expanded="false" />
             <element signature="method#checkMandatoryWarnings#0;class#RegistryWeatherTest#0" expanded="false" />
             <element signature="method#checkCloseAlertPanel#0;class#RegistryWeatherTest#0" expanded="false" />
+            <element signature="method#checkFieldSnowDate#0;class#RegistryWeatherTest#0" expanded="false" />
+            <element signature="method#checkFieldSnowDateNotValid#0;class#RegistryWeatherTest#0" expanded="false" />
+            <element signature="method#checkNotValidRainFall#0;class#RegistryWeatherTest#0" expanded="false" />
+            <element signature="method#checkObjectCreation#0;class#RegistryWeatherTest#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/WebDriverSettings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="84" column="7" lean-forward="false" selection-start-line="84" selection-start-column="7" selection-end-line="84" selection-end-column="7" />
+          <folding />
         </state>
       </provider>
     </entry>

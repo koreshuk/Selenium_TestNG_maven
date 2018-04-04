@@ -158,7 +158,7 @@ public class RegistryWeatherTest extends WebDriverSettings {
         driver.findElement(By.xpath("//button[@class='btn btn-default btn-no-brd btn-blue']/span[text()='Закрыть']")).click(); // закрытие карточки
     }
 
-   @Test (dependsOnMethods = "checkFieldSnowDate") // проверка вводе невалидных символов в дату
+   @Test (dependsOnMethods = "checkFieldSnowDate") // проверка вводa невалидных символов в дату
     public void checkFieldSnowDateNotValid() {
         getWhenVisible(By.xpath("//button[text()='Добавить']"),20).isDisplayed();
         driver.findElement(By.xpath("//button[text()='Добавить']")).click(); // открытие на создание карточки
@@ -182,5 +182,49 @@ public class RegistryWeatherTest extends WebDriverSettings {
             } else {
                 Assert.fail("НЕ верно- 'Дата окончания снегопада' должно соответствовать формату ДД.MM.ГГГГ ЧЧ:ММ.");
             }
+       driver.findElement(By.xpath("//button[@class='btn btn-default btn-no-brd btn-blue']/span[text()='Закрыть']")).click(); // закрытие карточки
+    }
+
+    @Test (dependsOnMethods = "checkFieldSnowDate") //Проверка ввода невалидных данных в поле Кол-во осадков, мм
+    public void checkNotValidRainFall() {
+        getWhenVisible(By.xpath("//button[text()='Добавить']"),20).isDisplayed();
+        driver.findElement(By.xpath("//button[text()='Добавить']")).click(); // открытие на создание карточки
+        getWhenVisible(By.xpath("//input[@name='innerPanel:rainfall']"),20).isDisplayed();
+
+        WebElement fieldRainFall = driver.findElement(By.xpath("//input[@name='innerPanel:rainfall']"));
+        fieldRainFall.sendKeys("qwe%$@");
+
+            if (fieldRainFall.getText().equals("")){
+                System.out.println("Верно -  невозможен ввод букв и спецсимволов в поле Кол-во осадков");
+            } else {
+                Assert.fail("Не верно -  возможен ввод букв и спецсимволов в поле Кол-во осадков");
+            }
+
+    }
+
+    @Test (dependsOnMethods = "checkNotValidRainFall") //Проверка ввода валидных данных и сохранения карточки
+    public void checkObjectCreation() {
+
+    WebElement popupListRegion = driver.findElement(By.xpath("//*[@class='select2 select2-container select2-container--default']")); // выбор менюшки
+    popupListRegion.click();//клик на меню для ввода поиска
+    driver.findElement(By.xpath("//input[@class='select2-search__field']")).sendKeys("Щелковск");//ввод первых символов поиска
+    getWhenVisible(By.xpath("//ul[@class='select2-results__options']/li[@class='select2-results__option select2-results__option--highlighted']"),20).isDisplayed();
+    WebElement selectPopupListRegion = driver.findElement(By.xpath("//ul[@class='select2-results__options']/li[@class='select2-results__option select2-results__option--highlighted']"));
+    selectPopupListRegion.click();
+
+    driver.findElement(By.xpath("//*[@name='innerPanel:snowDateFrom']")).sendKeys("07.02.2020 23:38");
+    driver.findElement(By.xpath("//*[@name='innerPanel:snowDateTo']")).sendKeys("08.02.2020 23:39");
+    driver.findElement(By.xpath("//input[@name='innerPanel:rainfall']")).sendKeys("150");
+    driver.findElement(By.xpath("//button[@name='innerPanel:buttonsPanel:saveBtn']")).click();
+
+    getWhenVisible(By.xpath("//*[@class='tab-hdr clearfix']/h1"),20).isDisplayed();
+    WebElement titleWeatherTable = driver.findElement(By.xpath("//*[@class='tab-hdr clearfix']/h1"));
+        if (titleWeatherTable.getText().equals("Погодные явления")){
+            System.out.println("Верно - Сохранение карточки успешно");
+        } else {
+            Assert.fail("Не верно - Сохранение карточки не успешно");
+        }
+
+
     }
 }
