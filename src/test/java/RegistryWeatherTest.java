@@ -227,4 +227,63 @@ public class RegistryWeatherTest extends WebDriverSettings {
 
 
     }
+
+    @Test (dependsOnMethods = "checkObjectCreation") //вызов подсвеченной панели и проверка наличия кнопки Просмотр
+    public void settingsObjectPanelView(){
+        driver.findElement(By.xpath("//td[@class=' txt-right ']")).click();
+        getWhenVisible(By.xpath("//button[@title='Просмотр']"),20).isDisplayed();
+        WebElement viewBtnPanel = driver.findElement(By.xpath("//button[@title='Просмотр']"));
+
+            if (viewBtnPanel.isDisplayed()){
+                System.out.println("Верно - кнопка просмотр присутствует");
+            } else {
+                Assert.fail("Не верно - отсутствует кнопка просмотр");
+            }
+    }
+
+    @Test (dependsOnMethods = "settingsObjectPanelView")  //Проверка наличия кнопки Редактировать
+    public void settingsObjectPanelEdit() {
+        WebElement editBtnPanel = driver.findElement(By.xpath("//button[@title='Изменить']"));
+
+            if (editBtnPanel.isDisplayed()){
+                System.out.println("Верно - кнопка Редактирование присутствует");
+            } else {
+                Assert.fail("Не верно - отсутствует Редактирование просмотр");
+            }
+    }
+
+    @Test (dependsOnMethods = "settingsObjectPanelView")  //Проверка наличия кнопки Удалить
+    public void settingsObjectPanelDel() {
+        WebElement editBtnPanel = driver.findElement(By.xpath("//button[@title='Удалить']"));
+
+            if (editBtnPanel.isDisplayed()){
+                System.out.println("Верно - кнопка Удаления присутствует");
+            } else {
+                Assert.fail("Не верно - отсутствует Удаления просмотр");
+            }
+    }
+
+    @Test (dependsOnMethods = "settingsObjectPanelDel") //открытие карточки на Просмотр. Проверка залоченности Кнопки Сохранить
+    public void viewObject() {
+        driver.findElement(By.xpath("//button[@title='Просмотр']")).click();
+        getWhenVisible(By.xpath("//button[@name='innerPanel:buttonsPanel:saveBtn']"),20).isDisplayed();
+
+            if (driver.findElement(By.xpath("//button[@name='innerPanel:buttonsPanel:saveBtn']")).isEnabled()) {
+                Assert.fail("Не верно - Карточка открыта на просмотр. Кнопка Создать НЕ залочена");
+            } else {
+                System.out.println("Верно - Карточка открыта на просмотр. Кнопка Создать залочена");
+            }
+
+    }
+
+    @Test (dependsOnMethods = "viewObject") //открытие карточки на Просмотр. Проверка НЕ залоченности Кнопки Закрыть
+    public void viewObjectCloseBtn() {
+        getWhenVisible(By.xpath("//button[@name='innerPanel:buttonsPanel:saveBtn']"),20).isDisplayed();
+
+            if (driver.findElement(By.xpath("//button[@class='btn btn-default btn-no-brd btn-blue']/span[text()='Закрыть']")).isEnabled()) {
+                System.out.println("Верно - Карточка открыта на просмотр. Кнопка Закрыть НЕ залочена");
+            } else {
+                Assert.fail("Не верно - Карточка открыта на просмотр. Кнопка Закрыть залочена");
+            }
+    }
 }
