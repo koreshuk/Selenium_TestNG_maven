@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
+import java.sql.Timestamp;
 import java.util.concurrent.TimeUnit;
 
 public class WebDriverSettings {
@@ -54,6 +55,16 @@ public class WebDriverSettings {
         return element;
     }
 
+    /**
+     * Функция выдирания ID из карточки объекта
+     */
+    public  Long idFieldKart() {
+        Long idObject = null;
+        WebElement idObjectTitle = driver.findElement(By.xpath("//div[@class='tab-hdr']/h1"));
+        String digitsIdWeather = idObjectTitle.getText().replaceAll("[^0-9.]", "");
+        idObject = new Long(digitsIdWeather); //из String в Long
+        return idObject;
+    }
 
     public boolean retryingFindClick(By by) {
         boolean result = false;

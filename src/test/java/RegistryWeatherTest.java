@@ -1,9 +1,14 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.NoInjection;
 import org.testng.annotations.Test;
+import ru.fors.ods3.base.domain.FdcAsAddrobjEntity;
 import ru.fors.ods3.msnow.domain.FdcWeatherEntity;
 import sun.awt.windows.WBufferStrategy;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class RegistryWeatherTest extends WebDriverSettings {
 
@@ -286,4 +291,119 @@ public class RegistryWeatherTest extends WebDriverSettings {
                 Assert.fail("Не верно - Карточка открыта на просмотр. Кнопка Закрыть залочена");
             }
     }
+
+    @Test (dependsOnMethods = "viewObject")//открытие карточки на Просмотр. Проверка залоченности поля Район
+    public void viewObjectRegion() {
+
+            if (driver.findElement(By.xpath("//select[@class='selectpicker  select2-hidden-accessible']")).isEnabled()) {
+                Assert.fail("Не верно - Карточка открыта на просмотр. Поле Район НЕ залочено");
+            } else {
+                System.out.println("Верно - Карточка открыта на просмотр. Поле Район залочено");
+            }
+    }
+
+    @Test (dependsOnMethods = "viewObject") //открытие карточки на Просмотр. Проверка залоченности поля Дата начала снегопада
+    public void viewObjectSnowDateFrom() {
+            if (driver.findElement(By.xpath("//input[@name='innerPanel:snowDateFrom']")).isEnabled()) {
+                Assert.fail("Не верно - Карточка открыта на просмотр. Поле 'Дата начала снегопада' НЕ залочено");
+            } else {
+                System.out.println("Верно - Карточка открыта на просмотр. Поле 'Дата начала снегопада' залочено");
+            }
+    }
+
+    @Test (dependsOnMethods = "viewObject")//открытие карточки на Просмотр. Проверка залоченности поля Дата окончания  снегопада
+    public void viewObjectSnowDateTo() {
+            if (driver.findElement(By.xpath("//input[@name='innerPanel:snowDateTo']")).isEnabled()) {
+                Assert.fail("Не верно - Карточка открыта на просмотр. Поле 'Дата окончания снегопада' НЕ залочено");
+            } else {
+                System.out.println("Верно - Карточка открыта на просмотр. Поле 'Дата окончания снегопада' залочено");
+            }
+    }
+
+    @Test (dependsOnMethods = "viewObject") //открытие карточки на Просмотр. Проверка залоченности поля Кол-во осадков, мм
+    public void viewObjectRainFall() {
+            if (driver.findElement(By.xpath("//input[@name='innerPanel:rainfall']")).isEnabled()) {
+                Assert.fail("Не верно - Карточка открыта на просмотр. Поле 'Кол-во осадков, мм' НЕ залочено");
+            } else {
+                System.out.println("Верно - Карточка открыта на просмотр. Поле 'Кол-во осадков, мм' залочено");
+            }
+    }
+
+    @Test (dependsOnMethods = "viewObject") //открытие карточки на Просмотр. Сверка наименования карточки без учёта ID
+    public void titleObject() {
+        WebElement titleObject = driver.findElement(By.xpath("//div[@class='tab-hdr']/h1"));
+            if (titleObject.getText().matches("Данные погодных явлений.\\(ID:.\\d*\\)")) {
+                System.out.println("Верно - Наименование карточки верно");
+            } else {
+                Assert.fail("НЕ верно - Наименование карточки НЕ верно");
+            }
+    }
+
+    @Test (dependsOnMethods = "viewObject") //Просмотр карточки. проверка поля Кол-во осадков, мм: с БД
+    public void checkRainFallValue() {
+        Long idObject = idFieldKart();
+
+        //Кол-во осадков, мм - Rainfal.делаем выборку одного значения из БД с использованием ID,выдраным раннее.
+        FdcWeatherEntity weatherRainFall = session.get(FdcWeatherEntity.class, idObject);
+
+        WebElement fieldRainFallValueWeb = driver.findElement(By.xpath("//input[@name='innerPanel:rainfall']"));
+        Integer fieldRainFallValue = new Integer(fieldRainFallValueWeb.getAttribute("value")); //из String в Integer
+            if (fieldRainFallValue.equals(weatherRainFall.getRainfall())) {
+                System.out.println("Верно - Значение UI поля 'Кол-во осадков, мм' равнo значению в БД");
+            } else {
+                Assert.fail("НЕ верно - Значение UI поля 'Кол-во осадков, мм' НЕ равнo значению в БД");
+            }
+    }
+
+    @Test (dependsOnMethods = "viewObject") //Просмотр карточки. Сверка поля Район: municipality_id с БД
+    public void checkFieldMunicipalityId() {
+        Long idObject = idFieldKart();
+
+        FdcWeatherEntity weatherRainFall = session.get(FdcWeatherEntity.class, idObject);
+        FdcAsAddrobjEntity asAddrobj = session.get(FdcAsAddrobjEntity.class, weatherRainFall.getMunicipalityId());
+
+        WebElement fieldMunicipalityValue = driver.findElement(By.xpath("//span[@class='select2-selection__rendered']"));
+            if (fieldMunicipalityValue.getText().equals(asAddrobj.getFormalName()+" "+asAddrobj.getShortName())) {
+                System.out.println("Верно - Значение поля Район равны в БД и UI");
+            } else {
+                Assert.fail("НЕ верно - Значение поля Район НЕ равны в БД и UI");
+            }
+    }
+
+    @Test (dependsOnMethods = "viewObject") //Проверка даты-времени SnowDateFrom-Дата начала снегопада
+    public void checkSnowDateFromValue(){
+        Long idObject = idFieldKart();
+
+        FdcWeatherEntity weatherSnowDateFrom = session.get(FdcWeatherEntity.class, idObject);
+
+        WebElement snowDateFromField = driver.findElement(By.xpath("//input[@name='innerPanel:snowDateFrom']"));
+            DateFormat df= new SimpleDateFormat("dd.MM.yyyy HH:mm");
+            df.setLenient(true);
+            String formattedDateSnowFrom = df.format(weatherSnowDateFrom.getSnowDateFrom());
+
+            if ((snowDateFromField.getAttribute("value")).equals(formattedDateSnowFrom)){
+                System.out.println("Верно - Значение поля 'Дата начала снегопада' равны в БД и UI");
+            } else {
+                Assert.fail("НЕ верно - Значение поля 'Дата начала снегопада' НЕ равны в БД и UI");
+            }
+    }
+
+    @Test (dependsOnMethods = "viewObject") //Проверка даты-времени SnowDateFrom-Дата начала снегопада
+    public void checkSnowDateToValue(){
+        Long idObject = idFieldKart();
+
+        FdcWeatherEntity weatherSnowDateTo = session.get(FdcWeatherEntity.class, idObject);
+
+        WebElement snowDateToField = driver.findElement(By.xpath("//input[@name='innerPanel:snowDateTo']"));
+            DateFormat df= new SimpleDateFormat("dd.MM.yyyy HH:mm");
+            df.setLenient(true);
+            String formattedDateSnowTo = df.format(weatherSnowDateTo.getSnowDateTo());
+
+            if ((snowDateToField.getAttribute("value")).equals(formattedDateSnowTo)){
+                System.out.println("Верно - Значение поля 'Дата окончания снегопада' равны в БД и UI");
+            } else {
+                Assert.fail("НЕ верно - Значение поля 'Дата окончания снегопада' НЕ равны в БД и UI");
+            }
+    }
+
 }
