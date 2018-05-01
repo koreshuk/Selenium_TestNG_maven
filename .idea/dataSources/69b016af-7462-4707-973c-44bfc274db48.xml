@@ -2716,7 +2716,7 @@
     </table>
     <table id="499" parent="40" name="fdc_lab_analysis_result">
       <ObjectId>4025375</ObjectId>
-      <Comment>Результаты лабораторных исследований </Comment>
+      <Comment>Результаты лабораторных исследований</Comment>
       <StateNumber>10705793</StateNumber>
     </table>
     <table id="500" parent="40" name="fdc_labrador_act">
@@ -2895,7 +2895,7 @@
     </table>
     <table id="535" parent="40" name="fdc_repair_journal">
       <ObjectId>4025515</ObjectId>
-      <Comment>Журнал работ ремонта Мосавтодора </Comment>
+      <Comment>Журнал работ ремонта Мосавтодора</Comment>
       <StateNumber>10646759</StateNumber>
     </table>
     <table id="536" parent="40" name="fdc_repair_journal_file">
@@ -8661,7 +8661,7 @@ place_code</ColNames>
     <column id="1385" parent="170" name="number_doc">
       <Position>14</Position>
       <Comment>НЕИСПОЛЬЗУЕМОЕ (ОДТИ)&#xd;
-Номер дела светофорного объекта </Comment>
+Номер дела светофорного объекта</Comment>
       <DataType>varchar(255)|0</DataType>
       <StateNumber>10590141</StateNumber>
       <TypeId>1043</TypeId>
@@ -12534,7 +12534,7 @@ file_extension_id</ColNames>
     </column>
     <column id="1920" parent="210" name="footpath">
       <Position>2</Position>
-      <Comment>Пешеходная дорожка </Comment>
+      <Comment>Пешеходная дорожка</Comment>
       <DataType>boolean|0</DataType>
       <StateNumber>10590588</StateNumber>
       <TypeId>16</TypeId>
@@ -13655,7 +13655,7 @@ file_extension_id</ColNames>
     </column>
     <column id="2072" parent="220" name="cadastral_number">
       <Position>10</Position>
-      <Comment>Кадастровй номер(земельного участка) </Comment>
+      <Comment>Кадастровй номер(земельного участка)</Comment>
       <DataType>time|0</DataType>
       <StateNumber>10590689</StateNumber>
       <TypeId>1083</TypeId>
@@ -14493,7 +14493,7 @@ file_extension_id</ColNames>
     </column>
     <column id="2186" parent="229" name="change_date">
       <Position>10</Position>
-      <Comment>Дата последнего изменения </Comment>
+      <Comment>Дата последнего изменения</Comment>
       <DataType>timestamp|0</DataType>
       <StateNumber>12896672</StateNumber>
       <TypeId>1114</TypeId>
@@ -21161,7 +21161,7 @@ attr_name</ColNames>
     <column id="3114" parent="280" name="pillar_id">
       <Position>3</Position>
       <Comment>НЕИСПОЛЬЗУЕМОЕ (ОДТИ)&#xd;
-Ид опоры / установки </Comment>
+Ид опоры / установки</Comment>
       <DataType>bigint|0</DataType>
       <StateNumber>10591524</StateNumber>
       <TypeId>20</TypeId>
@@ -23694,7 +23694,7 @@ date_to</ColNames>
     </foreign-key>
     <column id="3462" parent="297" name="id">
       <Position>1</Position>
-      <Comment>Ид титульного списка на текущий ремонт  ОДХ </Comment>
+      <Comment>Ид титульного списка на текущий ремонт  ОДХ</Comment>
       <DataType>bigint|0</DataType>
       <NotNull>1</NotNull>
       <StateNumber>10591842</StateNumber>
@@ -23723,7 +23723,7 @@ date_to</ColNames>
     </column>
     <column id="3466" parent="297" name="odh_id">
       <Position>5</Position>
-      <Comment>Ид версии объекта </Comment>
+      <Comment>Ид версии объекта</Comment>
       <DataType>bigint|0</DataType>
       <StateNumber>10591842</StateNumber>
       <TypeId>20</TypeId>
@@ -24440,7 +24440,7 @@ date_to</ColNames>
     <column id="3565" parent="302" name="serial_number">
       <Position>23</Position>
       <Comment>НЕИСПОЛЬЗУЕМОЕ (ОДТИ)&#xd;
-Заводской номер </Comment>
+Заводской номер</Comment>
       <DataType>varchar(255)|0</DataType>
       <StateNumber>10591894</StateNumber>
       <TypeId>1043</TypeId>
@@ -24988,7 +24988,7 @@ date_to</ColNames>
     </column>
     <column id="3640" parent="306" name="cap_type_id">
       <Position>5</Position>
-      <Comment>Ид типа оголовка </Comment>
+      <Comment>Ид типа оголовка</Comment>
       <DataType>bigint|0</DataType>
       <StateNumber>10591961</StateNumber>
       <TypeId>20</TypeId>
@@ -25002,7 +25002,7 @@ date_to</ColNames>
     </column>
     <column id="3642" parent="306" name="exit_hardening_type_id">
       <Position>7</Position>
-      <Comment>Ид типа укрепленного выходного отверстия </Comment>
+      <Comment>Ид типа укрепленного выходного отверстия</Comment>
       <DataType>bigint|0</DataType>
       <StateNumber>10591961</StateNumber>
       <TypeId>20</TypeId>
@@ -25121,21 +25121,21 @@ date_to</ColNames>
     </column>
     <column id="3659" parent="306" name="enclosure_ability_demand">
       <Position>24</Position>
-      <Comment>Удерживаемая способность ограждения (требуемая) </Comment>
+      <Comment>Удерживаемая способность ограждения (требуемая)</Comment>
       <DataType>text|0</DataType>
       <StateNumber>10591961</StateNumber>
       <TypeId>25</TypeId>
     </column>
     <column id="3660" parent="306" name="enclosure_ability_fact">
       <Position>25</Position>
-      <Comment>Удерживаемая способность ограждения (фактическая) </Comment>
+      <Comment>Удерживаемая способность ограждения (фактическая)</Comment>
       <DataType>text|0</DataType>
       <StateNumber>10591961</StateNumber>
       <TypeId>25</TypeId>
     </column>
     <column id="3661" parent="306" name="hold_ability_coef">
       <Position>26</Position>
-      <Comment>Коэффициент удерживающей способности </Comment>
+      <Comment>Коэффициент удерживающей способности</Comment>
       <DataType>double precision|0</DataType>
       <StateNumber>10591961</StateNumber>
       <TypeId>701</TypeId>
@@ -28003,7 +28003,7 @@ date_to</ColNames>
     </column>
     <column id="4099" parent="327" name="address_phone_email">
       <Position>68</Position>
-      <Comment>Адрес с телефоном и e-mailом </Comment>
+      <Comment>Адрес с телефоном и e-mailом</Comment>
       <DataType>text|0</DataType>
       <StateNumber>10590854</StateNumber>
     </column>
@@ -32601,7 +32601,7 @@ date_to</ColNames>
     </column>
     <column id="4977" parent="459" name="reg_reason_id">
       <Position>21</Position>
-      <Comment>Ид основания регистрации </Comment>
+      <Comment>Ид основания регистрации</Comment>
       <DataType>bigint|0</DataType>
       <StateNumber>10587615</StateNumber>
       <TypeId>20</TypeId>
@@ -33327,7 +33327,7 @@ date_to</ColNames>
     </column>
     <column id="5078" parent="464" name="distance_from_start_plan">
       <Position>3</Position>
-      <Comment>Расстояние от начала участка, км (план) </Comment>
+      <Comment>Расстояние от начала участка, км (план)</Comment>
       <DataType>double precision|0</DataType>
       <StateNumber>10587682</StateNumber>
       <TypeId>701</TypeId>
@@ -40121,7 +40121,7 @@ file_id</ColNames>
     </column>
     <column id="6022" parent="523" name="result_date_plan">
       <Position>20</Position>
-      <Comment>Дата подведения итогов, план </Comment>
+      <Comment>Дата подведения итогов, план</Comment>
       <DataType>date|0</DataType>
       <StateNumber>10587971</StateNumber>
       <TypeId>1082</TypeId>
@@ -43840,7 +43840,7 @@ file_id</ColNames>
     </column>
     <column id="6551" parent="560" name="auditor_id">
       <Position>26</Position>
-      <Comment>Ид проверяющего </Comment>
+      <Comment>Ид проверяющего</Comment>
       <DataType>bigint|0</DataType>
       <StateNumber>10587770</StateNumber>
       <TypeId>20</TypeId>
@@ -56167,7 +56167,7 @@ calendar_id</ColNames>
     </column>
     <column id="8668" parent="723" name="issue_dept_code">
       <Position>39</Position>
-      <Comment>Документ.Код подразделения </Comment>
+      <Comment>Документ.Код подразделения</Comment>
       <DataType>varchar(6)|0</DataType>
       <StateNumber>10587062</StateNumber>
       <TypeId>1043</TypeId>
@@ -58496,13 +58496,13 @@ person_type_id</ColNames>
     </column>
     <column id="9014" parent="748" name="asur_sync_status">
       <Position>36</Position>
-      <Comment>статус синхронизации с асур (0-запрос не отправлялся, 1- ожидает ответа, 2- данные актуальны, 3 - не удалось синхронизировать) </Comment>
+      <Comment>статус синхронизации с асур (0-запрос не отправлялся, 1- ожидает ответа, 2- данные актуальны, 3 - не удалось синхронизировать)</Comment>
       <DataType>integer|0</DataType>
       <StateNumber>10589599</StateNumber>
     </column>
     <column id="9015" parent="748" name="asur_sync_date">
       <Position>37</Position>
-      <Comment>дата последней успешной синхронизации с асур </Comment>
+      <Comment>дата последней успешной синхронизации с асур</Comment>
       <DataType>timestamp|0</DataType>
       <StateNumber>10589599</StateNumber>
     </column>
@@ -58520,25 +58520,25 @@ person_type_id</ColNames>
     </column>
     <column id="9018" parent="748" name="fns_validate">
       <Position>40</Position>
-      <Comment>признак того, обновлены сведения о юл данными из фнс </Comment>
+      <Comment>признак того, обновлены сведения о юл данными из фнс</Comment>
       <DataType>boolean|0</DataType>
       <StateNumber>10589599</StateNumber>
     </column>
     <column id="9019" parent="748" name="fns_sync_date">
       <Position>41</Position>
-      <Comment>дата синхронизации с фнс </Comment>
+      <Comment>дата синхронизации с фнс</Comment>
       <DataType>timestamp|0</DataType>
       <StateNumber>10589599</StateNumber>
     </column>
     <column id="9020" parent="748" name="last_changed">
       <Position>42</Position>
-      <Comment>дата последних изменении </Comment>
+      <Comment>дата последних изменении</Comment>
       <DataType>timestamp|0</DataType>
       <StateNumber>10589599</StateNumber>
     </column>
     <column id="9021" parent="748" name="username">
       <Position>43</Position>
-      <Comment>пользователь внесший изменение </Comment>
+      <Comment>пользователь внесший изменение</Comment>
       <DataType>varchar(30)|0</DataType>
       <StateNumber>10589599</StateNumber>
     </column>
