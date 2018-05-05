@@ -1,18 +1,15 @@
-import com.sun.xml.internal.bind.v2.TODO;
+
+import org.hibernate.Cache;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.NoInjection;
 import org.testng.annotations.Test;
 import ru.fors.ods3.base.domain.FdcAsAddrobjEntity;
 import ru.fors.ods3.msnow.domain.FdcWeatherEntity;
-import sun.awt.windows.WBufferStrategy;
-
-import javax.annotation.concurrent.NotThreadSafe;
-import javax.swing.text.html.CSS;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.concurrent.TimeUnit;
 
 public class RegistryWeatherTest extends WebDriverSettings {
 
@@ -41,10 +38,12 @@ public class RegistryWeatherTest extends WebDriverSettings {
 
     @Test(dependsOnMethods = "checkTitleRegistryWeather")
     public void checkConnectionDB() {
-        FdcWeatherEntity entity = getSession().get(FdcWeatherEntity.class, 36714118L);
+        FdcWeatherEntity entity = getSession().get(FdcWeatherEntity.class, 39114998L);
 
         if (entity.getId() != null) {
             System.out.println("Сущность подтянулась");
+        }else {
+            System.out.println("Сущность НЕ подтянулась");
         }
     }
 
@@ -221,8 +220,8 @@ public class RegistryWeatherTest extends WebDriverSettings {
     WebElement selectPopupListRegion = driver.findElement(By.xpath("//ul[@class='select2-results__options']/li[@class='select2-results__option select2-results__option--highlighted']"));
     selectPopupListRegion.click();
 
-    driver.findElement(By.xpath("//*[@name='innerPanel:snowDateFrom']")).sendKeys("07.02.2020 23:38");
-    driver.findElement(By.xpath("//*[@name='innerPanel:snowDateTo']")).sendKeys("08.02.2020 23:39");
+    driver.findElement(By.xpath("//*[@name='innerPanel:snowDateFrom']")).sendKeys("07.02.2018 23:38");
+    driver.findElement(By.xpath("//*[@name='innerPanel:snowDateTo']")).sendKeys("08.02.2018 23:39");
     driver.findElement(By.xpath("//input[@name='innerPanel:rainfall']")).sendKeys("150");
     driver.findElement(By.xpath("//button[@name='innerPanel:buttonsPanel:saveBtn']")).click();
 
@@ -352,7 +351,7 @@ public class RegistryWeatherTest extends WebDriverSettings {
 
         WebElement fieldRainFallValueWeb = driver.findElement(By.xpath("//input[@name='innerPanel:rainfall']"));
         Integer fieldRainFallValue = new Integer(fieldRainFallValueWeb.getAttribute("value")); //из String в Integer
-            if (fieldRainFallValue.equals(weatherRainFall.getRainfall()) || fieldRainFallValue.equals("")){
+            if (fieldRainFallValue.equals(weatherRainFall.getRainfall()) || fieldRainFallValueWeb.getAttribute("value").equals("")){
                 System.out.println("Верно - Значение UI поля 'Кол-во осадков, мм' равнo значению в БД");
             } else {
                 Assert.fail("НЕ верно - Значение UI поля 'Кол-во осадков, мм' НЕ равнo значению в БД!!!");
@@ -531,6 +530,7 @@ public class RegistryWeatherTest extends WebDriverSettings {
 
     @Test (dependsOnMethods = "checkEditSnowDateFromValue") //Редактирование карточки.Проверка даты-времени SnowDateFrom-Дата начала снегопада
     public void checkEditSnowDateToValue(){
+
         Long idObject = idFieldKart();
 
         FdcWeatherEntity weatherSnowDateTo = session.get(FdcWeatherEntity.class, idObject);
@@ -547,16 +547,15 @@ public class RegistryWeatherTest extends WebDriverSettings {
             }
     }
 
-    @Test (dependsOnMethods = "checkEditSnowDateToValue") //Редактирование карточки. проверка поля Кол-во осадков, мм: с БД
+   @Test (dependsOnMethods = "checkEditSnowDateToValue") //Редактирование карточки. проверка поля Кол-во осадков, мм: с БД
     public void checkEditRainFallValue() {
+       getWhenVisible(By.xpath("//input[@name='innerPanel:rainfall']"),20).isDisplayed();
         Long idObject = idFieldKart();
-
         //Кол-во осадков, мм - Rainfal.делаем выборку одного значения из БД с использованием ID,выдраным раннее.
         FdcWeatherEntity weatherRainFall = session.get(FdcWeatherEntity.class, idObject);
-
         WebElement fieldRainFallValueWeb = driver.findElement(By.xpath("//input[@name='innerPanel:rainfall']"));
         Integer fieldRainFallValue = new Integer(fieldRainFallValueWeb.getAttribute("value")); //из String в Integer
-            if (fieldRainFallValue.equals(weatherRainFall.getRainfall()) || fieldRainFallValue.equals("")){
+            if (fieldRainFallValue.equals(weatherRainFall.getRainfall()) || fieldRainFallValueWeb.getAttribute("value").equals("")){
                 System.out.println("Редактирование карточки. Верно - Значение UI поля 'Кол-во осадков, мм' равнo значению в БД");
             } else {
                 Assert.fail("Редактирование карточки. НЕ верно - Значение UI поля 'Кол-во осадков, мм' НЕ равнo значению в БД!!!");
@@ -572,17 +571,20 @@ public class RegistryWeatherTest extends WebDriverSettings {
         fieldRainFallValueWeb.clear();
         fieldRainFallValueWeb.sendKeys("550");
 
+        session.clear(); //очистка кэша сессии
+        Long idObject = idFieldKart();
+        FdcWeatherEntity weatherRainFall = session.get(FdcWeatherEntity.class, idObject);
             //Сохранение карточки
         driver.findElement(By.xpath("//button[@name='innerPanel:buttonsPanel:saveBtn']")).click();
         getWhenVisible(By.xpath("//div[@class='tab-hdr clearfix']/h1"),20).isDisplayed();
 
         WebElement tableTitle = driver.findElement(By.xpath("//div[@class='tab-hdr clearfix']/h1"));
 
-            if (tableTitle.getText().equals("Погодные явления")) {
-                System.out.println("Редактирование карточки. Сохранение карточки из режима редактирования Успешно. Реестр Погоды открыт");
-            } else {
-                Assert.fail("Редактирование карточки. Сохранение карточки из режима редактирования НЕ Успешно. Реестр Погоды НЕ открыт");
-            }
+                if (tableTitle.getText().equals("Погодные явления")) {
+                    System.out.println("Редактирование карточки. Сохранение карточки из режима редактирования Успешно. Реестр Погоды открыт");
+                } else {
+                    Assert.fail("Редактирование карточки. Сохранение карточки из режима редактирования НЕ Успешно. Реестр Погоды НЕ открыт");
+                }
     }
 
     @Test (dependsOnMethods = "checkEditChangeObject") // проверка внесённых изменений
@@ -590,26 +592,30 @@ public class RegistryWeatherTest extends WebDriverSettings {
 
         //Вход в режим просмотра
         driver.findElement(By.xpath("//td[@class=' txt-right ']")).click();
-        getWhenVisible(By.xpath("//button[@title='Просмотр']"),20).isDisplayed();
+        getWhenVisible(By.xpath("//button[@title='Просмотр']"),20).isEnabled();
         driver.findElement(By.xpath("//button[@title='Просмотр']")).click();
-        getWhenVisible(By.xpath("//button[@name='innerPanel:buttonsPanel:saveBtn']"),20).isDisplayed();
+        getWhenVisible(By.xpath("//button[@name='innerPanel:buttonsPanel:saveBtn']"),20).isEnabled();
 
+        session.clear(); // очистка кэша сессии
         Long idObject = idFieldKart();
-        FdcWeatherEntity weatherRainFall = session.get(FdcWeatherEntity.class, idObject);
 
         WebElement fieldRainFallValueWeb = driver.findElement(By.xpath("//input[@name='innerPanel:rainfall']"));
+        getWhenVisible(By.xpath("//input[@class='inp-w100']"),20).isDisplayed();
+        retryingFindClick(By.xpath("//input[@class='inp-w100']"));
+        FdcWeatherEntity weatherRainFall = session.get(FdcWeatherEntity.class, idObject);
+
         Integer fieldRainFallValue = new Integer(fieldRainFallValueWeb.getAttribute("value")); //из String в Integer
-            if (fieldRainFallValue.equals(weatherRainFall.getRainfall()) || fieldRainFallValue.equals("")){
-                System.out.println("Редактирование карточки. Верно - изменённое значение UI поля 'Кол-во осадков, мм' равнo значению в БД");
+            if (fieldRainFallValue.equals(weatherRainFall.getRainfall()) || fieldRainFallValueWeb.getAttribute("value").equals("")){
+                System.out.println("Редактирование карточки. Верно - изменённое значение UI поля 'Кол-во осадков, мм' "+fieldRainFallValueWeb.getAttribute("value")+" равнo значению в БД "+weatherRainFall.getRainfall());
             } else {
-                Assert.fail("Редактирование карточки. НЕ верно - изменённое значение UI поля 'Кол-во осадков, мм' НЕ равнo значению в БД!!!");
+                System.out.println("Редактирование карточки. НЕ верно - изменённое значение UI поля 'Кол-во осадков, мм' "+fieldRainFallValueWeb.getAttribute("value")+" НЕ равнo значению в БД "+weatherRainFall.getRainfall());
             }
         driver.findElement(By.xpath("//button[@class='btn btn-default btn-no-brd btn-blue']/span[text()='Закрыть']")).click();
     }
 
     @Test (dependsOnMethods = "checkEditedValues") // Проверка модалки удаления наименования
     public void checkDeletionWindow() {
-        getWhenVisible(By.xpath("//div[@class='tab-hdr clearfix']/h1"),20).isDisplayed();
+        getWhenVisible(By.xpath("//div[@class='tab-hdr clearfix']/h1"),10).isDisplayed();
         driver.findElement(By.xpath("//td[@class=' txt-right ']")).click();
         getWhenVisible(By.xpath("//button[@title='Удалить']"),20).isDisplayed();
         driver.findElement(By.xpath("//button[@title='Удалить']")).click();
@@ -684,22 +690,254 @@ public class RegistryWeatherTest extends WebDriverSettings {
             Assert.fail("Модалка удаления. Закрытие кнопкой Отмена Успешно");
         }
     }
-//TODO  eeedfdsfsdf
-    @Test (dependsOnMethods = "checkCancellDeletionWindow") //подсчёт
+
+    @Test (dependsOnMethods = "checkCancellDeletionWindow") //подсчёт при удалении
     public void checkDeletionObject() {
-        int countBdBefore = ((Long)getSession().createQuery("select count(*) from FdcWeatherEntity").uniqueResult()).intValue();
+            int countBdBefore = ((Long)getSession().createQuery("select count(*) from FdcWeatherEntity").uniqueResult()).intValue();
         getWhenVisible(By.xpath("//div[@class='tab-hdr clearfix']/h1"),20).isDisplayed();
         driver.findElement(By.xpath("//td[@class=' txt-right ']")).click();
         getWhenVisible(By.xpath("//button[@title='Удалить']"),20).isDisplayed();
         driver.findElement(By.xpath("//button[@title='Удалить']")).click();
 
-        getWhenVisible(By.xpath("//div[@class='fdc-wicket-dialog-buttons']/input[position()=1]"),20).isDisplayed();
-        driver.findElement(By.xpath("//div[@class='fdc-wicket-dialog-buttons']/input[position()=1]")).click();
+        getWhenVisible(By.xpath("//input[@name='buttons:1']"),20).isDisplayed(); //кнопка подтверждения удаления
+        driver.findElement(By.xpath("//input[@name='buttons:1']")).click();
+        driver.navigate().refresh();
+        getWhenVisible(By.xpath("//div[@class='tab-hdr clearfix']/h1"),20).isDisplayed();
+
         int countBdAfter = ((Long)getSession().createQuery("select count(*) from FdcWeatherEntity").uniqueResult()).intValue();
+            if (countBdAfter == countBdAfter-1){
+                System.out.println("Модалка удаления. Проверка удаления объекта с БД. Удаление успешно. Число объектов +"+countBdAfter+" после удаления = число объектов до удаления "+countBdBefore+" -1");
+            } else {
+                System.out.println("Модалка удаления. Проверка удаления объекта с БД. Удаление НЕ успешно. Число объектов +"+countBdAfter+" после удаления != число объектов до удаления "+countBdBefore+" -1");
+            }
+        }
 
-        System.out.println(countBdAfter+" "+countBdBefore);
+    @Test (dependsOnMethods = "checkDeletionObject") //Панель фильтров. Проверка Наименования Район фильтра
+    public void checkTitleFilterMunicipalityId() {
+        getWhenVisible(By.xpath("//label[@class='control-label col-lg-4']"),20).isDisplayed();
+        //retryingFindClick(By.xpath("//label[@class='control-label col-lg-4']"));
+
+        WebElement titleMunicipalityFilter = driver.findElement(By.xpath("//div[@class='row']/div[position()=1]/div[@class='form-group']/label"));
+
+        if (titleMunicipalityFilter.getText().equals("РАЙОН:")) {
+                System.out.println("Панель фильтров. Наименование Район Верно");
+            }else  {
+                Assert.fail("Панель фильтров. Наименование Район НЕ Верно");
+            }
     }
-//
+
+    @Test (dependsOnMethods = "checkTitleFilterMunicipalityId") //Панель фильтров. Проверка Наименования Дата начала фильтра
+    public void checkTitleDateFromFilter() {
+        retryingFindClick(By.xpath("//div[@class='row']/div[position()=2]/div[@class='form-group']/label"));
+        getWhenVisible(By.xpath("//div[@class='row']/div[position()=2]/div[@class='form-group']/label"),20).isEnabled();
+        WebElement titleDateFromFilter = driver.findElement(By.xpath("//div[@class='row']/div[position()=2]/div[@class='form-group']/label"));
+
+            if (titleDateFromFilter.getText().equals("ДАТА НАЧАЛА ПЕРИОДА:")) {
+                System.out.println("Панель фильтров. Наименование Дата начала периода: Верно");
+            }else  {
+                Assert.fail("Панель фильтров. Наименование Дата начала периода: НЕ Верно");
+            }
+    }
+
+    @Test (dependsOnMethods = "checkTitleDateFromFilter") //Панель фильтров. Проверка Наименования Дата окончания фильтра
+    public void checkTitleDateToFilter() {
+        getWhenVisible(By.xpath("//div[@class='row']/div[position()=3]/div[@class='form-group']/label"),20).isDisplayed();
+        WebElement titleDateToFilter = driver.findElement(By.xpath("//div[@class='row']/div[position()=3]/div[@class='form-group']/label"));
+            if (titleDateToFilter.getText().equals("ДАТА ОКОНЧАНИЯ ПЕРИОДА:")) {
+                System.out.println("Панель фильтров. Наименование Дата окончания периода: Верно");
+            }else  {
+                Assert.fail("Панель фильтров. Наименование Дата окончания периода: НЕ Верно");
+            }
+    }
+
+    @Test (dependsOnMethods = "checkTitleDateToFilter") ////Панель фильтров. ввод данных в ДАТА НАЧАЛА ПЕРИОДА: и обнуление
+    public void checkValueDateFromFilter() {
+        getWhenVisible(By.xpath("//input[@name='snowDateFrom']"),20).isEnabled();
+        WebElement valueDateFromFilter = driver.findElement(By.xpath("//input[@name='snowDateFrom']"));
+        valueDateFromFilter.sendKeys("22.02.2018 23:16");
+        getWhenVisible(By.xpath("//div[@class='btn-group btn-group-flt-srch btn-group-justified']/div[position()=2]/button"),20).isEnabled();
+        driver.findElement(By.xpath("//div[@class='btn-group btn-group-flt-srch btn-group-justified']/div[position()=2]/button")).click();
+
+        if (valueDateFromFilter.getText().equals("")){
+            System.out.println("Панель фильтров. Ввод данных и обнуление поля Дата Начала Успешно");
+        }else {
+            Assert.fail("Панель фильтров. Ввод данных и обнуление поля Дата Начала НЕ Успешно");
+        }
+    }
+
+    @Test (dependsOnMethods = "checkValueDateFromFilter") //Панель фильтров. ввод данных в Район и обнуление
+    public void checkValueMunicipalityFilter(){
+       // getWhenVisible(By.xpath("//span[@class='select2-selection select2-selection--single']"),20).isEnabled();
+        WebElement popupListRegion = driver.findElement(By.xpath("//span[@class='select2-selection__rendered']")); // выбор менюшки
+        popupListRegion.click();//клик на меню для ввода поиска
+        getWhenVisible(By.xpath("//input[@class='select2-search__field']"),20).isEnabled();
+        driver.findElement(By.xpath("//input[@class='select2-search__field']")).sendKeys("Щелковск");//ввод первых символов поиска
+        getWhenVisible(By.xpath("//span[@class='select2-results']/ul/li"),20).isEnabled();
+
+        WebElement selectPopupListRegion = driver.findElement(By.xpath("//span[@class='select2-results']/ul/li"));
+        selectPopupListRegion.click();
+
+        driver.findElement(By.xpath("//div[@class='btn-group btn-group-flt-srch btn-group-justified']/div[position()=2]/button")).click();
+        getWhenVisible(By.xpath("//span[@class='select2-selection__placeholder']"),20).isDisplayed();
+        WebElement titleDefaultMunicipalityFilter = driver.findElement(By.xpath("//span[@class='select2-selection__placeholder']"));
+            if (titleDefaultMunicipalityFilter.getText().equals("Все")){
+                System.out.println("Панель фильтров. Ввод данных и обнуление поля Район Успешно");
+            }else {
+                Assert.fail("Панель фильтров. Ввод данных и обнуление поля Район НЕ Успешно");
+            }
+    }
+
+    @Test (dependsOnMethods = "checkValueMunicipalityFilter") //Панель фильтров. ввод данных в ДАТА окончание ПЕРИОДА: и обнуление
+    public void checkValueDateToFilter() {
+        driver.navigate().refresh();
+        driver.manage().timeouts().pageLoadTimeout(3, TimeUnit.SECONDS);
+        getWhenVisible(By.xpath("//input[@name='snowDateTo']"),20).isEnabled();
+        retryingFindClick(By.xpath("//input[@name='snowDateTo']"));
+        WebElement valueDateToFilter = driver.findElement(By.xpath("//input[@name='snowDateTo']"));
+        getWhenVisible(By.xpath("//div[@class='btn-group btn-group-flt-srch btn-group-justified']/div[position()=2]/button"),20).isEnabled();
+
+        valueDateToFilter.sendKeys("22.02.2018 25:16");
+
+        driver.findElement(By.xpath("//input[@name='snowDateFrom']")).click();
+
+        driver.manage().timeouts().pageLoadTimeout(3, TimeUnit.SECONDS);
+        valueDateToFilter.sendKeys(Keys.ESCAPE);
+
+            if (valueDateToFilter.getText().equals("")){
+                System.out.println("Панель фильтров. Ввод данных и обнуление поля Дата Окончания Успешно");
+            }else {
+                Assert.fail("Панель фильтров. Ввод данных и обнуление поля Дата Окончания НЕ Успешно");
+            }
+    }
+
+    @Test (dependsOnMethods = "checkValueDateToFilter")  // Табличная часть. Сверка количества строк в таблице на 1й странице и наименования
+    public void checkTableRecords10() {
+
+         if (titleCountObjectTable() == numberListCountTable()) {
+                System.out.println("Табличная часть. Количество записей"+numberListCountTable()+" таблицы соответствует номеру в тайтле таблицы " + titleCountObjectTable());
+            } else {
+                System.out.println("Табличная часть. Количество записей"+numberListCountTable()+" таблицы НЕ соответствует номеру в тайтле таблицы " + titleCountObjectTable());
+            }
+    }
+
+    @Test (dependsOnMethods = "checkTableRecords10") //Табличная часть. Проверка выбора количества отображаемых записей  в наименовании таблицы 20 (10, 20,50)
+    public void checkTableCountListSelection20() {
+        driver.findElement(By.xpath("//select[@class='form-control']")).click();
+        getWhenVisible(By.xpath("//option[@value='1']"), 20).isEnabled();
+        WebElement countListTitle = driver.findElement(By.xpath("//option[@value='1']"));
+        countListTitle.click();
+
+        getWhenVisible(By.xpath("//option[@value='1']"), 20).isEnabled();
+
+            if (countListTitle.getText().equals("20")) {
+                System.out.println("Табличная часть. Значение выбранное в выпадающем списке кол-ва объектов на странице верно = " + countListTitle.getText());
+            } else {
+                Assert.fail("Табличная часть. Значение выбранное в выпадающем списке кол-ва объектов на странице НЕ верно != "+countListTitle.getText());
+            }
+    }
+
+    @Test (dependsOnMethods = "checkTableCountListSelection20") //Табличная часть. Проверка количества записей в таблице при выборке в 20 элементов
+    public void checkTableRecords20() {
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+            if (titleCountObjectTable()==numberListCountTable()) {
+
+                System.out.println("Табличная часть. Количество записей"+numberListCountTable()+" таблицы соответствует номеру в тайтле таблицы " + titleCountObjectTable());
+            } else {
+                Assert.fail("Табличная часть. Количество записей"+numberListCountTable()+" таблицы НЕ соответствует номеру в тайтле таблицы " + titleCountObjectTable());
+            }
+    }
 
 
+    @Test (dependsOnMethods = "checkTableRecords20") //Табличная часть. Проверка выбота количества отображаемых записей  50 (10, 20,50)
+    public void checkTableCountListSelection50() {
+
+        retryingFindClick(By.xpath("//select[@class='form-control']"));
+        driver.findElement(By.xpath("//select[@class='form-control']")).click();
+
+        getWhenVisible(By.xpath("//option[@value='2']"), 20).isDisplayed();
+        WebElement countListTitle = driver.findElement(By.xpath("//option[@value='2']"));
+        countListTitle.click();
+
+        driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
+
+        getWhenVisible(By.xpath("//option[@value='2']"), 20).isDisplayed();
+            if (countListTitle.getText().equals("50")) {
+                System.out.println("Табличная часть. Значение выбранное в выпадающем списке кол-ва объектов на странице  = " + countListTitle.getText());
+            } else {
+                Assert.fail("Табличная часть. Значение выбранное в выпадающем списке кол-ва объектов на странице НЕ  = "+ countListTitle.getText());
+            }
+    }
+    @Test(dependsOnMethods = "checkTableCountListSelection50")  //Табличная часть. Проверка количества записей в таблице при выборке в 50 элементов
+    public void checkTableRecords50() {
+
+        getWhenVisible(By.xpath("//option[@value='2']"), 20).isEnabled();
+            if (titleCountObjectTable() == numberListCountTable()) {
+                System.out.println("Табличная часть. Количество записей таблицы соответствует номеру в тайтле таблицы =" + numberListCountTable());
+            } else {
+                Assert.fail("Табличная часть. Количество записей таблицы соответствует номеру в тайтле таблицы =" + numberListCountTable());
+            }
+    }
+
+    @Test (dependsOnMethods = "checkTableRecords50")
+    public void checkFilterSlideBtnUp() //панель фильтров. Сворачивание панели
+    {
+
+        driver.findElement(By.xpath("//span[@class='fa fa-chevron-circle-up']")).click();
+        WebElement filterPanelButtonsVisible = driver.findElement(By.xpath("//input[@name='snowDateFrom']"));
+        if(filterPanelButtonsVisible.isDisplayed()) {
+            System.out.println("Панель фильтров  сложилась. Кнопки не видны");
+        } else {
+            Assert.fail("Панель фильтров НЕ сложилась. Кнопки видны");
+        }
+
+    }
+    @Test (dependsOnMethods = "checkFilterSlideBtnUp")
+    public void checkFilterSlideBtnDown() //панель фильтров. Разворачивание панели
+    {
+
+        driver.findElement(By.xpath("//span[@class='fa fa-chevron-circle-down']")).click();
+        WebElement filterPanelButtonsVisible = driver.findElement(By.xpath("//input[@name='snowDateFrom']"));
+        if(filterPanelButtonsVisible.isDisplayed()) {
+            Assert.fail("Панель фильтров  НЕ развернулась. Кнопки не видны");
+        } else {
+            System.out.println("Панель фильтров развернулась. Кнопки видны");
+        }
+    }
+
+    @Test (dependsOnMethods = "checkFilterSlideBtnDown") //Поиск по Району
+    public void searchMunicipalityResult(){
+        //Поиск по фильтру Муниц.район
+        getWhenVisible(By.xpath("//span[@class='select2 select2-container select2-container--default']"),20).isDisplayed();
+        WebElement popupListRegion = driver.findElement(By.xpath("//*[@class='select2 select2-container select2-container--default']")); // выбор менюшки
+        popupListRegion.click();//клик на меню для ввода поиска
+        driver.findElement(By.xpath("//input[@class='select2-search__field']")).sendKeys("Щелковск");//ввод первых символов поиска
+        getWhenVisible(By.xpath("//ul[@class='select2-results__options']/li[@class='select2-results__option select2-results__option--highlighted']"),20).isDisplayed();
+
+        WebElement selectPopupListRegion = driver.findElement(By.xpath("//ul[@class='select2-results__options']/li[@class='select2-results__option select2-results__option--highlighted']"));
+        selectPopupListRegion.click();
+        driver.findElement(By.xpath("//button[@name='search']")).click();
+        driver.navigate().refresh();
+        // открытие карточки на просмотр
+        retryingFindClick(By.xpath("//td[@class=' txt-center ']"));
+        driver.findElement(By.xpath("//td[@class=' txt-center ']")).click();
+        getWhenVisible(By.xpath("//button[@title='Просмотр']"),20).isDisplayed();
+        driver.findElement(By.xpath("//button[@title='Просмотр']")).click();
+
+       //нахождение муниципального_ид
+        Long idObject = idFieldKart();
+        FdcWeatherEntity weatherRainFall = session.get(FdcWeatherEntity.class, idObject);
+        Long municipalityId = weatherRainFall.getMunicipalityId();
+        Long municipalityIdCount = ((Long)getSession().createQuery("select count(*) from FdcWeatherEntity where municipalityId="+municipalityId).uniqueResult());
+
+        //возврат из просмотра в реестр с поиском
+        driver.findElement(By.xpath("//button[@class='btn btn-default btn-no-brd btn-blue']/span[text()='Закрыть']")).click();
+        getWhenVisible(By.xpath("//div[@class='tab-hdr clearfix']/h1"),20).isDisplayed();
+
+        if (municipalityIdCount == numberCountTableObjectTotal()) {
+            System.out.println("Число объектов по поиску Района верно числу объектов в БД с заданным районом "+municipalityIdCount+" = "+numberCountTableObjectTotal());
+        } else {
+            Assert.fail("Число объектов по поиску Района НЕ верно числу объектов в БД с заданным районом "+municipalityIdCount+" != "+numberCountTableObjectTotal());
+        }
+    }
 }

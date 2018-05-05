@@ -11,6 +11,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class WebDriverSettings {
@@ -49,9 +50,9 @@ public class WebDriverSettings {
      * Функция для ожидания Элемента на странице
      */
     public WebElement getWhenVisible(By locator, int timeout) {
-        WebElement element = null;
+
         WebDriverWait wait = new WebDriverWait(driver, timeout);
-        element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         return element;
     }
 
@@ -59,11 +60,52 @@ public class WebDriverSettings {
      * Функция выдирания ID из карточки объекта
      */
     public  Long idFieldKart() {
-        Long idObject = null;
+
+        getWhenVisible(By.xpath("//div[@class='tab-hdr']"),20).isDisplayed();
         WebElement idObjectTitle = driver.findElement(By.xpath("//div[@class='tab-hdr']/h1"));
         String digitsIdWeather = idObjectTitle.getText().replaceAll("[^0-9.]", "");
-        idObject = new Long(digitsIdWeather); //из String в Long
+        Long idObject = new Long(digitsIdWeather); //из String в Long
         return idObject;
+    }
+
+    /**
+     * Функция выдирания количества отображаемых записей таблицы из тайтла в левом нижнем углу "Показаны с 1 по 10 из #"
+     */
+    public int titleCountObjectTable(){
+        int titleCountObjTable;
+        driver.navigate().refresh();
+        WebElement spisokOdinPoKoli4 = driver.findElement(By.xpath("//div[@class='navigatorLabel']/div"));
+        String checkFirstPartRecordCount= spisokOdinPoKoli4.getText().replace("Показаны с 1 по ", "");
+        String checkSecondPartRecordCount =checkFirstPartRecordCount.replaceAll(" из \\d+","");
+        titleCountObjTable = new Integer(checkSecondPartRecordCount);
+
+        return titleCountObjTable;
+    }
+
+    /**
+    * Функция подсчёта отображаемых строк таблицы
+    */
+    public int numberListCountTable() {
+        driver.navigate().refresh();
+        List<WebElement> list = driver.findElements(By.xpath("//tbody/tr[@keynavigator-watched='true']"));
+        WebElement listCountTableRecods = driver.findElement(By.xpath("//option[@selected='selected']"));
+        Integer listCounTableObjLines = new Integer(listCountTableRecods.getText());
+
+        return listCounTableObjLines;
+    }
+
+    /**
+     * Функция подсчёта результата поиска количества записей, отображаемой в таблице(внизу в тайтле слева)
+     */
+    public int numberCountTableObjectTotal() {
+
+        WebElement spisokOdinPoKoli4 = driver.findElement(By.xpath("//div[@class='navigatorLabel']/div"));
+        String checkNumberObjectTCount= spisokOdinPoKoli4.getText().replaceAll("Показаны с 1 по \\d+ из ", "");
+        Integer checkNumberObjectTableCount = new Integer(checkNumberObjectTCount);
+
+        return checkNumberObjectTableCount;
+
+
     }
 
     public boolean retryingFindClick(By by) {
@@ -93,6 +135,6 @@ public class WebDriverSettings {
     @AfterTest public void close() {
         sessionFactory.close();
         session.close();
-        driver.quit();
+       // driver.quit();
     }
 }
