@@ -9,8 +9,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
-
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -24,7 +22,7 @@ public class WebDriverSettings {
 
     @BeforeTest
     public void setUp(){
-        //TODO - в будующем нужно будет вот это вынести а не хардкодить путь в системе.
+
         System.setProperty("webdriver.chrome.driver", "c:\\Program Files\\chromedriver\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
@@ -75,8 +73,8 @@ public class WebDriverSettings {
         int titleCountObjTable;
         driver.navigate().refresh();
         retryingFindClick(By.xpath("//div[@class='navigatorLabel']/div"));
-        WebElement spisokOdinPoKoli4 = driver.findElement(By.xpath("//div[@class='navigatorLabel']/div"));
-        String checkFirstPartRecordCount= spisokOdinPoKoli4.getText().replace("Показаны с 1 по ", "");
+        WebElement linkRecordCountFirstPage = driver.findElement(By.xpath("//div[@class='navigatorLabel']/div"));
+        String checkFirstPartRecordCount= linkRecordCountFirstPage.getText().replace("Показаны с 1 по ", "");
         String checkSecondPartRecordCount =checkFirstPartRecordCount.replaceAll(" из \\d+","");
         titleCountObjTable = new Integer(checkSecondPartRecordCount);
 
@@ -100,8 +98,8 @@ public class WebDriverSettings {
      */
     public int numberCountTableObjectTotal() {
         getWhenVisible(By.xpath("//div[@class='navigatorLabel']/div"),20);
-        WebElement spisokOdinPoKoli4 = driver.findElement(By.xpath("//div[@class='navigatorLabel']/div"));
-        String checkNumberObjectTCount= spisokOdinPoKoli4.getText().replaceAll("Показаны с \\d+ по \\d+ из ", "");
+        WebElement linkRecordCountTotal = driver.findElement(By.xpath("//div[@class='navigatorLabel']/div"));
+        String checkNumberObjectTCount= linkRecordCountTotal.getText().replaceAll("Показаны с \\d+ по \\d+ из ", "");
         Integer checkNumberObjectTableCount = new Integer(checkNumberObjectTCount);
 
         return checkNumberObjectTableCount;
@@ -136,6 +134,6 @@ public class WebDriverSettings {
     @AfterTest public void close() {
         sessionFactory.close();
         session.close();
-       // driver.quit();
+        driver.quit();
     }
 }

@@ -260,8 +260,6 @@ public class RegistryWeatherTest extends WebDriverSettings {
         } else {
             Assert.fail("Не верно - Сохранение карточки не успешно");
         }
-
-
     }
 
     @Test (dependsOnMethods = "checkObjectCreation") //вызов подсвеченной панели и проверка наличия кнопки Просмотр
@@ -795,7 +793,7 @@ public class RegistryWeatherTest extends WebDriverSettings {
 
     @Test (dependsOnMethods = "checkValueDateFromFilter") //Панель фильтров. ввод данных в Район и обнуление
     public void checkValueMunicipalityFilter(){
-       // getWhenVisible(By.xpath("//span[@class='select2-selection select2-selection--single']"),20).isEnabled();
+        getWhenVisible(By.xpath("//span[@class='select2-selection select2-selection--single']"),20).isEnabled();
         WebElement popupListRegion = driver.findElement(By.xpath("//span[@class='select2-selection__rendered']")); // выбор менюшки
         popupListRegion.click();//клик на меню для ввода поиска
         getWhenVisible(By.xpath("//input[@class='select2-search__field']"),20).isEnabled();
