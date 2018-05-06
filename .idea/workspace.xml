@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ba8b2980-24e7-4daa-8228-610292c40073" name="Default" comment="правки">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" afterPath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" />
       <change beforePath="$PROJECT_DIR$/src/test/java/RegistryWeatherTest.java" afterPath="$PROJECT_DIR$/src/test/java/RegistryWeatherTest.java" />
       <change beforePath="$PROJECT_DIR$/src/test/java/WebDriverSettings.java" afterPath="$PROJECT_DIR$/src/test/java/WebDriverSettings.java" />
     </list>
@@ -35,11 +32,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="RegistryWeatherTest.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="RegistryWeatherTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/RegistryWeatherTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
-              <caret line="588" column="0" lean-forward="true" selection-start-line="588" selection-start-column="0" selection-end-line="588" selection-end-column="0" />
+            <state relative-caret-position="114">
+              <caret line="1157" column="89" lean-forward="true" selection-start-line="1157" selection-start-column="89" selection-end-line="1157" selection-end-column="89" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#settingsObjectPanelEdit#0;class#RegistryWeatherTest#0" expanded="false" />
@@ -53,16 +50,6 @@
                 <element signature="method#editTitleObject#0;class#RegistryWeatherTest#0" expanded="false" />
                 <element signature="method#checkEditSnowDateFromValue#0;class#RegistryWeatherTest#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="temp-testng-customsuite.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/.IntelliJIdea2017.3/system/temp-testng-customsuite.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -81,16 +68,20 @@
         <entry file="das://table:/4a756a9d/69b016af-7462-4707-973c-44bfc274db48/ods_dev.msnow.fdc_weather">
           <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
             <state>
-              <filtering enabled="true" />
+              <filtering enabled="true" text="snow_date_from &gt;= '01.05.2018%'">
+                <filter text="snow_date_from &gt;= '01.05.2018%'" />
+                <filter text="snow_date_from &gt;= '01.05.2018'" />
+                <filter text="snow_date_from = '01.05.2018'" />
+              </filtering>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WebDriverSettings.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="WebDriverSettings.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/WebDriverSettings.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="103" column="16" lean-forward="false" selection-start-line="103" selection-start-column="16" selection-end-line="103" selection-end-column="16" />
+            <state relative-caret-position="231">
+              <caret line="104" column="16" lean-forward="false" selection-start-line="104" selection-start-column="16" selection-end-line="104" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -127,6 +118,9 @@
       <find>select</find>
       <find>List</find>
       <find>numberListCountTable</find>
+      <find>btn-group</find>
+      <find>DateTo</find>
+      <find>numberCountTableObjectTotal</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -165,10 +159,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1945" />
-    <option name="y" value="1" />
+    <option name="x" value="1924" />
+    <option name="y" value="5" />
     <option name="width" value="1610" />
-    <option name="height" value="1045" />
+    <option name="height" value="1041" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -507,7 +501,7 @@
       <workItem from="1522790328489" duration="21188000" />
       <workItem from="1523054028777" duration="26799000" />
       <workItem from="1525080457900" duration="42902000" />
-      <workItem from="1525171973171" duration="65792000" />
+      <workItem from="1525171973171" duration="104945000" />
     </task>
     <task id="LOCAL-00001" summary="правки">
       <created>1522708889001</created>
@@ -558,43 +552,50 @@
       <option name="project" value="LOCAL" />
       <updated>1525161187057</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="правки">
+      <created>1525478658783</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1525478658783</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="RegistryWeatherTest - 2018.05.05 at 02h 16m 32s.xml">
+    <history-entry file="RegistryWeatherTest - 2018.05.06 at 19h 21m 40s.xml">
       <configuration name="RegistryWeatherTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RegistryWeatherTest - 2018.05.05 at 02h 20m 34s.xml">
+    <history-entry file="RegistryWeatherTest - 2018.05.06 at 19h 23m 56s.xml">
       <configuration name="RegistryWeatherTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RegistryWeatherTest - 2018.05.05 at 02h 23m 44s.xml">
+    <history-entry file="RegistryWeatherTest - 2018.05.06 at 19h 30m 15s.xml">
       <configuration name="RegistryWeatherTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RegistryWeatherTest - 2018.05.05 at 02h 25m 15s.xml">
+    <history-entry file="RegistryWeatherTest - 2018.05.06 at 19h 32m 19s.xml">
       <configuration name="RegistryWeatherTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RegistryWeatherTest - 2018.05.05 at 02h 30m 49s.xml">
+    <history-entry file="RegistryWeatherTest - 2018.05.06 at 19h 33m 23s.xml">
       <configuration name="RegistryWeatherTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RegistryWeatherTest - 2018.05.05 at 02h 32m 11s.xml">
+    <history-entry file="RegistryWeatherTest - 2018.05.06 at 19h 34m 17s.xml">
       <configuration name="RegistryWeatherTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RegistryWeatherTest - 2018.05.05 at 02h 33m 45s.xml">
+    <history-entry file="RegistryWeatherTest - 2018.05.06 at 19h 35m 11s.xml">
       <configuration name="RegistryWeatherTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RegistryWeatherTest - 2018.05.05 at 02h 36m 27s.xml">
+    <history-entry file="RegistryWeatherTest - 2018.05.06 at 19h 40m 32s.xml">
       <configuration name="RegistryWeatherTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RegistryWeatherTest - 2018.05.05 at 02h 38m 06s.xml">
+    <history-entry file="RegistryWeatherTest - 2018.05.06 at 19h 42m 49s.xml">
       <configuration name="RegistryWeatherTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RegistryWeatherTest - 2018.05.05 at 02h 42m 05s.xml">
+    <history-entry file="RegistryWeatherTest - 2018.05.06 at 19h 44m 40s.xml">
       <configuration name="RegistryWeatherTest" configurationId="TestNG" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="177510000" />
+    <option name="totallyTimeSpent" value="216663000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -607,7 +608,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1945" y="1" width="1610" height="1045" extended-state="0" />
+    <frame x="1924" y="5" width="1610" height="1041" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -623,22 +624,22 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39823982" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32673267" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39779004" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3281768" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17931794" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17900552" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32893288" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2728273" sideWeight="0.4978678" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32893288" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42320442" sideWeight="0.4978678" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3281768" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32967743" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32893288" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="FAQ Robot" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.08709677" sideWeight="0.36565655" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3288889" sideWeight="0.4978678" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19741936" sideWeight="0.63434345" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18645161" sideWeight="0.63434345" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.06399132" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -731,7 +732,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="35" />
+      <option name="time" value="41" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1058,13 +1059,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="das://table:/4a756a9d/69b016af-7462-4707-973c-44bfc274db48/ods_dev.msnow.fdc_weather">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/69b016af-7462-4707-973c-44bfc274db48/console.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1089,20 +1083,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/WebDriverSettings.java">
+    <entry file="das://table:/4a756a9d/69b016af-7462-4707-973c-44bfc274db48/ods_dev.msnow.fdc_weather">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" text="snow_date_from &gt;= '01.05.2018%'">
+            <filter text="snow_date_from &gt;= '01.05.2018%'" />
+            <filter text="snow_date_from &gt;= '01.05.2018'" />
+            <filter text="snow_date_from = '01.05.2018'" />
+          </filtering>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_161/jre/lib/rt.jar!/sun/reflect/NativeMethodAccessorImpl.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="103" column="16" lean-forward="false" selection-start-line="103" selection-start-column="16" selection-end-line="103" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="272">
+          <caret line="17" column="43" lean-forward="false" selection-start-line="17" selection-start-column="43" selection-end-line="17" selection-end-column="43" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/RegistryWeatherTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="588" column="0" lean-forward="true" selection-start-line="588" selection-start-column="0" selection-end-line="588" selection-end-column="0" />
+        <state relative-caret-position="114">
+          <caret line="1157" column="89" lean-forward="true" selection-start-line="1157" selection-start-column="89" selection-end-line="1157" selection-end-column="89" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#settingsObjectPanelEdit#0;class#RegistryWeatherTest#0" expanded="false" />
@@ -1115,6 +1118,16 @@
             <element signature="method#editObjectSnowDateTo#0;class#RegistryWeatherTest#0" expanded="false" />
             <element signature="method#editTitleObject#0;class#RegistryWeatherTest#0" expanded="false" />
             <element signature="method#checkEditSnowDateFromValue#0;class#RegistryWeatherTest#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/WebDriverSettings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="104" column="16" lean-forward="false" selection-start-line="104" selection-start-column="16" selection-end-line="104" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

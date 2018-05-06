@@ -74,6 +74,7 @@ public class WebDriverSettings {
     public int titleCountObjectTable(){
         int titleCountObjTable;
         driver.navigate().refresh();
+        retryingFindClick(By.xpath("//div[@class='navigatorLabel']/div"));
         WebElement spisokOdinPoKoli4 = driver.findElement(By.xpath("//div[@class='navigatorLabel']/div"));
         String checkFirstPartRecordCount= spisokOdinPoKoli4.getText().replace("Показаны с 1 по ", "");
         String checkSecondPartRecordCount =checkFirstPartRecordCount.replaceAll(" из \\d+","");
@@ -88,19 +89,19 @@ public class WebDriverSettings {
     public int numberListCountTable() {
         driver.navigate().refresh();
         List<WebElement> list = driver.findElements(By.xpath("//tbody/tr[@keynavigator-watched='true']"));
-        WebElement listCountTableRecods = driver.findElement(By.xpath("//option[@selected='selected']"));
-        Integer listCounTableObjLines = new Integer(listCountTableRecods.getText());
-
-        return listCounTableObjLines;
+        //WebElement listCountTableRecods = driver.findElement(By.xpath("//option[@selected='selected']"));
+       // Integer listCounTableObjLines = new Integer(listCountTableRecods.getText());
+        list.size();
+        return list.size();
     }
 
     /**
      * Функция подсчёта результата поиска количества записей, отображаемой в таблице(внизу в тайтле слева)
      */
     public int numberCountTableObjectTotal() {
-
+        getWhenVisible(By.xpath("//div[@class='navigatorLabel']/div"),20);
         WebElement spisokOdinPoKoli4 = driver.findElement(By.xpath("//div[@class='navigatorLabel']/div"));
-        String checkNumberObjectTCount= spisokOdinPoKoli4.getText().replaceAll("Показаны с 1 по \\d+ из ", "");
+        String checkNumberObjectTCount= spisokOdinPoKoli4.getText().replaceAll("Показаны с \\d+ по \\d+ из ", "");
         Integer checkNumberObjectTableCount = new Integer(checkNumberObjectTCount);
 
         return checkNumberObjectTableCount;

@@ -1,5 +1,3 @@
-
-import org.hibernate.Cache;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -18,7 +16,7 @@ public class RegistryWeatherTest extends WebDriverSettings {
     @Test
     public void checkTitleRegistryWeather() {
         driver.get(URL_WEATHER);
-        getWhenVisible(By.xpath("//button[@class='btn btn-default btn-no-brd btn-blue']"),20).isDisplayed();
+        getWhenVisible(By.xpath("//button[@class='btn btn-default btn-no-brd btn-blue']"), 20).isDisplayed();
         String titleWeather = driver.getTitle();
 
         Assert.assertTrue(titleWeather.equals("Система контроля и планирования работ в области дорожной инфраструктуры"));
@@ -26,7 +24,7 @@ public class RegistryWeatherTest extends WebDriverSettings {
 
     @Test(dependsOnMethods = "checkTitleRegistryWeather")
     public void checkTableTitle() {
-        getWhenVisible(By.xpath("//button[@class='btn btn-default btn-no-brd btn-blue']"),20).isDisplayed();
+        getWhenVisible(By.xpath("//button[@class='btn btn-default btn-no-brd btn-blue']"), 20).isDisplayed();
         WebElement tableTitle = driver.findElement(By.xpath("//div[@class='tab-hdr clearfix']/h1"));
 
         if (tableTitle.getText().equals("Погодные явления")) {
@@ -42,7 +40,7 @@ public class RegistryWeatherTest extends WebDriverSettings {
 
         if (entity.getId() != null) {
             System.out.println("Сущность подтянулась");
-        }else {
+        } else {
             System.out.println("Сущность НЕ подтянулась");
         }
     }
@@ -195,6 +193,7 @@ public class RegistryWeatherTest extends WebDriverSettings {
 
     @Test (dependsOnMethods = "checkFieldSnowDate") //Проверка ввода невалидных данных в поле Кол-во осадков, мм
     public void checkNotValidRainFall() {
+
         getWhenVisible(By.xpath("//button[text()='Добавить']"),20).isDisplayed();
         driver.findElement(By.xpath("//button[text()='Добавить']")).click(); // открытие на создание карточки
         getWhenVisible(By.xpath("//input[@name='innerPanel:rainfall']"),20).isDisplayed();
@@ -208,20 +207,49 @@ public class RegistryWeatherTest extends WebDriverSettings {
                 Assert.fail("Не верно -  возможен ввод букв и спецсимволов в поле Кол-во осадков");
             }
 
+        driver.findElement(By.xpath("//button[@class='btn btn-default btn-no-brd btn-blue']/span[text()='Закрыть']")).click();
+
     }
 
-    @Test (dependsOnMethods = "checkNotValidRainFall") //Проверка ввода валидных данных и сохранения карточки
+    @Test (dependsOnMethods = "checkNotValidRainFall") // Проверка ввода больших цифр в поле Кол-во осадков
+    public void checkLongNumberRainFall() {
+        getWhenVisible(By.xpath("//button[text()='Добавить']"),20).isDisplayed();
+        driver.findElement(By.xpath("//button[text()='Добавить']")).click(); // открытие на создание карточки
+        getWhenVisible(By.xpath("//input[@name='innerPanel:snowDateFrom']"),20).isDisplayed();
+
+        WebElement popupListRegion = driver.findElement(By.xpath("//*[@class='select2 select2-container select2-container--default']")); // выбор менюшки
+        popupListRegion.click();//клик на меню для ввода поиска
+        driver.findElement(By.xpath("//input[@class='select2-search__field']")).sendKeys("Щелковск");//ввод первых символов поиска
+        getWhenVisible(By.xpath("//ul[@class='select2-results__options']/li[@class='select2-results__option select2-results__option--highlighted']"),20).isDisplayed();
+        WebElement selectPopupListRegion = driver.findElement(By.xpath("//ul[@class='select2-results__options']/li[@class='select2-results__option select2-results__option--highlighted']"));
+        selectPopupListRegion.click();
+
+        driver.findElement(By.xpath("//input[@name='innerPanel:snowDateFrom']")).sendKeys("02.05.2018 13:49");
+        driver.findElement(By.xpath("//*[@name='innerPanel:snowDateTo']")).sendKeys("02.05.2018 13:49");
+
+
+        WebElement fieldRainFallValueWeb = driver.findElement(By.xpath("//input[@name='innerPanel:rainfall']"));
+        fieldRainFallValueWeb.sendKeys("9999999999");
+
+        driver.findElement(By.xpath("//button[@name='innerPanel:buttonsPanel:saveBtn']")).click();
+        getWhenVisible(By.xpath("//li[@class='feedbackPanelERROR']"),20).isDisplayed();
+        WebElement feedbackError = driver.findElement(By.xpath("//li[@class='feedbackPanelERROR']/span"));
+        System.out.println(feedbackError.getText());
+
+        if (feedbackError.getText().equals("'Кол-во осадков, мм' выходит за границы допустимых значений.")) {
+            System.out.println("Верно - корректное сообщение при большом числе вводимом в поле Кол-во осадков");
+        } else {
+            Assert.fail("Верно - корректное сообщение при большом числе вводимом в поле Кол-во осадков");
+        }
+
+       // driver.findElement(By.xpath("//button[@class='btn btn-default btn-no-brd btn-blue']/span[text()='Закрыть']")).click();
+
+    }
+
+    @Test (dependsOnMethods = "checkLongNumberRainFall") //Проверка ввода валидных данных и сохранения карточки
     public void checkObjectCreation() {
 
-    WebElement popupListRegion = driver.findElement(By.xpath("//*[@class='select2 select2-container select2-container--default']")); // выбор менюшки
-    popupListRegion.click();//клик на меню для ввода поиска
-    driver.findElement(By.xpath("//input[@class='select2-search__field']")).sendKeys("Щелковск");//ввод первых символов поиска
-    getWhenVisible(By.xpath("//ul[@class='select2-results__options']/li[@class='select2-results__option select2-results__option--highlighted']"),20).isDisplayed();
-    WebElement selectPopupListRegion = driver.findElement(By.xpath("//ul[@class='select2-results__options']/li[@class='select2-results__option select2-results__option--highlighted']"));
-    selectPopupListRegion.click();
-
-    driver.findElement(By.xpath("//*[@name='innerPanel:snowDateFrom']")).sendKeys("07.02.2018 23:38");
-    driver.findElement(By.xpath("//*[@name='innerPanel:snowDateTo']")).sendKeys("08.02.2018 23:39");
+    driver.findElement(By.xpath("//input[@name='innerPanel:rainfall']")).clear();
     driver.findElement(By.xpath("//input[@name='innerPanel:rainfall']")).sendKeys("150");
     driver.findElement(By.xpath("//button[@name='innerPanel:buttonsPanel:saveBtn']")).click();
 
@@ -571,9 +599,9 @@ public class RegistryWeatherTest extends WebDriverSettings {
         fieldRainFallValueWeb.clear();
         fieldRainFallValueWeb.sendKeys("550");
 
-        session.clear(); //очистка кэша сессии
-        Long idObject = idFieldKart();
-        FdcWeatherEntity weatherRainFall = session.get(FdcWeatherEntity.class, idObject);
+       // session.clear(); //очистка кэша сессии
+       // Long idObject = idFieldKart();
+      //  FdcWeatherEntity weatherRainFall = session.get(FdcWeatherEntity.class, idObject);
             //Сохранение карточки
         driver.findElement(By.xpath("//button[@name='innerPanel:buttonsPanel:saveBtn']")).click();
         getWhenVisible(By.xpath("//div[@class='tab-hdr clearfix']/h1"),20).isDisplayed();
@@ -798,7 +826,7 @@ public class RegistryWeatherTest extends WebDriverSettings {
 
         valueDateToFilter.sendKeys("22.02.2018 25:16");
 
-        driver.findElement(By.xpath("//input[@name='snowDateFrom']")).click();
+        driver.findElement(By.xpath("//td[@class=' txt-center ']")).click();
 
         driver.manage().timeouts().pageLoadTimeout(3, TimeUnit.SECONDS);
         valueDateToFilter.sendKeys(Keys.ESCAPE);
@@ -859,9 +887,10 @@ public class RegistryWeatherTest extends WebDriverSettings {
         WebElement countListTitle = driver.findElement(By.xpath("//option[@value='2']"));
         countListTitle.click();
 
-        driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         getWhenVisible(By.xpath("//option[@value='2']"), 20).isDisplayed();
+        retryingFindClick(By.xpath("//option[@value='2']"));
             if (countListTitle.getText().equals("50")) {
                 System.out.println("Табличная часть. Значение выбранное в выпадающем списке кол-ва объектов на странице  = " + countListTitle.getText());
             } else {
@@ -880,32 +909,65 @@ public class RegistryWeatherTest extends WebDriverSettings {
     }
 
     @Test (dependsOnMethods = "checkTableRecords50")
-    public void checkFilterSlideBtnUp() //панель фильтров. Сворачивание панели
+    public void checkFilterSlideBtnUp() //панель фильтров. Сворачивание панели  checkTableRecords50
     {
 
         driver.findElement(By.xpath("//span[@class='fa fa-chevron-circle-up']")).click();
         WebElement filterPanelButtonsVisible = driver.findElement(By.xpath("//input[@name='snowDateFrom']"));
-        if(filterPanelButtonsVisible.isDisplayed()) {
-            System.out.println("Панель фильтров  сложилась. Кнопки не видны");
-        } else {
-            Assert.fail("Панель фильтров НЕ сложилась. Кнопки видны");
-        }
+            if(filterPanelButtonsVisible.isDisplayed()) {
+                System.out.println("Панель фильтров  сложилась. Кнопки не видны");
+            } else {
+                Assert.fail("Панель фильтров НЕ сложилась. Кнопки видны");
+            }
 
     }
-    @Test (dependsOnMethods = "checkFilterSlideBtnUp")
+
+      @Test (dependsOnMethods = "checkFilterSlideBtnUp") //Панель фильтра. Проверка тайтла кнопки свёрнутого фильтра
+    public void checkTitleClosedFilterBtn() {
+          try {
+              Thread.sleep(1000);                 //1000 milliseconds is one second.
+          } catch(InterruptedException ex) {
+              Thread.currentThread().interrupt();
+          }
+          WebElement filterBtnPanel2 = driver.findElement(By.xpath("//button[@class='btn btn-controls btn-filter-toggle']"));
+
+          if (filterBtnPanel2.getAttribute("title").equals("Показать фильтр")) {
+              System.out.println("Панель фильтров. Панель свёрнута и тайлт кнопки верен ="+filterBtnPanel2.getAttribute("title"));
+          }else {
+              System.out.println("Панель фильтров. Панель свёрнута и тайлт кнопки НЕ верен !="+filterBtnPanel2.getAttribute("title"));
+          }
+    }
+
+    @Test (dependsOnMethods = "checkTitleClosedFilterBtn")
     public void checkFilterSlideBtnDown() //панель фильтров. Разворачивание панели
     {
 
         driver.findElement(By.xpath("//span[@class='fa fa-chevron-circle-down']")).click();
         WebElement filterPanelButtonsVisible = driver.findElement(By.xpath("//input[@name='snowDateFrom']"));
-        if(filterPanelButtonsVisible.isDisplayed()) {
-            Assert.fail("Панель фильтров  НЕ развернулась. Кнопки не видны");
-        } else {
-            System.out.println("Панель фильтров развернулась. Кнопки видны");
-        }
+            if(filterPanelButtonsVisible.isEnabled()) {
+                System.out.println("Панель фильтров развернулась. Кнопки видны");
+            } else {
+                Assert.fail("Панель фильтров  НЕ развернулась. Кнопки не видны");
+            }
     }
 
-    @Test (dependsOnMethods = "checkFilterSlideBtnDown") //Поиск по Району
+    @Test (dependsOnMethods = "checkFilterSlideBtnDown") //Панель фильтра. Проверка тайтла кнопки развёрнутого фильтра
+    public void checkTitleClosedFilterButton() {
+        try {
+            Thread.sleep(1000);                 //1000 milliseconds is one second.
+        } catch(InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+      WebElement filterBtnPanel1 = driver.findElement(By.xpath("//button[@class='btn btn-controls btn-filter-toggle']"));
+
+          if (filterBtnPanel1.getAttribute("title").equals("Скрыть фильтр")) {
+              System.out.println("Панель фильтров. Панель развернута и тайлт кнопки верен ="+filterBtnPanel1.getAttribute("title"));
+          }else {
+              System.out.println("Панель фильтров. Панель развернута и тайлт кнопки НЕ верен !="+filterBtnPanel1.getAttribute("title"));
+          }
+    }
+
+    @Test (dependsOnMethods = "checkTitleClosedFilterButton") //Поиск по Району
     public void searchMunicipalityResult(){
         //Поиск по фильтру Муниц.район
         getWhenVisible(By.xpath("//span[@class='select2 select2-container select2-container--default']"),20).isDisplayed();
@@ -919,8 +981,9 @@ public class RegistryWeatherTest extends WebDriverSettings {
         driver.findElement(By.xpath("//button[@name='search']")).click();
         driver.navigate().refresh();
         // открытие карточки на просмотр
-        retryingFindClick(By.xpath("//td[@class=' txt-center ']"));
-        driver.findElement(By.xpath("//td[@class=' txt-center ']")).click();
+        retryingFindClick(By.xpath("//td[@class=' txt-right ']"));
+        driver.findElement(By.xpath("//td[@class=' txt-right ']")).click();
+        retryingFindClick(By.xpath("//td[@class=' txt-right ']"));
         getWhenVisible(By.xpath("//button[@title='Просмотр']"),20).isDisplayed();
         driver.findElement(By.xpath("//button[@title='Просмотр']")).click();
 
@@ -934,10 +997,230 @@ public class RegistryWeatherTest extends WebDriverSettings {
         driver.findElement(By.xpath("//button[@class='btn btn-default btn-no-brd btn-blue']/span[text()='Закрыть']")).click();
         getWhenVisible(By.xpath("//div[@class='tab-hdr clearfix']/h1"),20).isDisplayed();
 
-        if (municipalityIdCount == numberCountTableObjectTotal()) {
-            System.out.println("Число объектов по поиску Района верно числу объектов в БД с заданным районом "+municipalityIdCount+" = "+numberCountTableObjectTotal());
+            if (municipalityIdCount == numberCountTableObjectTotal()) {
+                System.out.println("Число объектов по поиску Района верно числу объектов в БД с заданным районом "+municipalityIdCount+" = "+numberCountTableObjectTotal());
+            } else {
+                Assert.fail("Число объектов по поиску Района НЕ верно числу объектов в БД с заданным районом "+municipalityIdCount+" != "+numberCountTableObjectTotal());
+            }
+    }
+
+    @Test (dependsOnMethods = "searchMunicipalityResult") // поиск по Дате Начала
+    public void searchNotValidSnowDateFrom(){
+
+        driver.findElement(By.xpath("//input[@name='snowDateFrom']")).sendKeys("0Д.ММ.2018");
+
+        driver.findElement(By.xpath("//button[@name='search']")).click();
+        retryingFindClick(By.xpath("//button[@name='search']"));
+        WebElement snowDatePanelError = driver.findElement(By.xpath("//li[@class='feedbackPanelERROR']/span"));
+
+            if (snowDatePanelError.getText().equals("'Дата начала периода' должно соответствовать формату ДД.ММ.ГГГГ.")) {
+                System.out.println("Панель фильтров. Надпись о некорректном вводе Даты Начала верна - "+snowDatePanelError.getText());
+            }else {
+                Assert.fail("Панель фильтров. Надпись о некорректном вводе Даты Начала НЕ верна - 'Дата начала периода' должно соответствовать формату ДД.ММ.ГГГГ.");
+            }
+        driver.findElement(By.xpath("//div[@class='btn-group btn-group-flt-srch btn-group-justified']/div[position()=2]/button")).click();
+    }
+
+    @Test(dependsOnMethods = "searchNotValidSnowDateFrom") // поиск по Дате Начала
+    public void searchNotValidSnowDateTo() {
+        driver.navigate().refresh();
+        getWhenVisible(By.xpath("//input[@name='snowDateTo']"), 20).isEnabled();
+
+        WebElement valueDateToFilter = driver.findElement(By.xpath("//input[@name='snowDateTo']"));
+        valueDateToFilter.isEnabled();
+        valueDateToFilter.sendKeys("20.1М.201Г");
+        driver.findElement(By.xpath("//td[@class=' txt-center ']")).click();
+
+        WebElement searchBtn = driver.findElement(By.xpath("//button[@name='search']"));
+
+                try {
+                    Thread.sleep(1000);                 //1000 milliseconds is one second.
+                } catch(InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }
+        searchBtn.click();
+                try {
+                    Thread.sleep(1000);                 //1000 milliseconds is one second.
+                } catch(InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }
+       WebElement snowDatePanelError = driver.findElement(By.xpath("//li[@class='feedbackPanelERROR']/span"));
+        getWhenVisible(By.xpath("//li[@class='feedbackPanelERROR']/span"),20).isEnabled();
+        if (snowDatePanelError.getText().equals("'Дата окончания периода' должно соответствовать формату ДД.ММ.ГГГГ.")) {
+            System.out.println("Панель фильтров. Надпись о некорректном вводе Даты окончания верна -"+snowDatePanelError.getText());
+        }else {
+            Assert.fail("Панель фильтров. Надпись о некорректном вводе Даты окончания верна -'Дата окончания периода' должно соответствовать формату ДД.ММ.ГГГГ.");
+        }
+        driver.findElement(By.xpath("//div[@class='btn-group btn-group-flt-srch btn-group-justified']/div[position()=2]/button")).click();
+    }
+
+    @Test (dependsOnMethods = "searchNotValidSnowDateFrom") //Пагинация. Проверка залоченности кнопок перейти на последнюю и 1 пагинация
+      public void checkPaginationMoveAll() {
+        WebElement firstAll = driver.findElement(By.xpath("//a[@class='first']"));
+        WebElement firstPagination = driver.findElement(By.xpath("//a[@title='Перейти на страницу 1']"));
+        WebElement prevBtn = driver.findElement(By.xpath("//a[@class='prev']"));
+            if (firstAll.isEnabled() && prevBtn.isEnabled() && firstPagination.isEnabled()) {
+                System.out.println("Пагинация. Верно - Кнопки перейти на первую и предыдущую страницы пагинации залочены");
+            } else {
+                Assert.fail("Пагинация. Не верно - Кнопки перейти на первую и предыдущую страницы пагинации НЕ залочены");
+            }
+    }
+
+    @Test (dependsOnMethods = "checkPaginationMoveAll") //Пагинация - проверка тайтла кнопки Перейти на первую
+    public void checkTitleMoveFirst() {
+        WebElement titleMoveFirstButn = driver.findElement(By.xpath("//a[@class='first']"));
+            if (titleMoveFirstButn.getAttribute("title").equals("Перейти на первую страницу")) {
+                System.out.println("Пагинация. Тайтл кнопки перехода на первую страницу верен ="+titleMoveFirstButn.getAttribute("title"));
+            } else {
+                Assert.fail("Пагинация. Тайтл кнопки перехода на первую страницу НЕ верен !="+titleMoveFirstButn.getAttribute("title"));
+            }
+    }
+
+    @Test (dependsOnMethods = "checkTitleMoveFirst")  //Пагинация - проверка тайтла кнопки Перейти на предыдущую страницу
+    public void checkTitleMovePrev(){
+        WebElement titleMovePrevBtn = driver.findElement(By.xpath("//a[@class='prev']"));
+            if (titleMovePrevBtn.getAttribute("title").equals("Перейти на предыдущую страницу")) {
+                System.out.println("Пагинация. Тайтл кнопки перехода на предыдущую страницу верен ="+titleMovePrevBtn.getAttribute("title"));
+            } else {
+                Assert.fail("Пагинация. Тайтл кнопки перехода на предыдущую страницу НЕ верен !="+titleMovePrevBtn.getAttribute("title"));
+            }
+    }
+
+    @Test (dependsOnMethods = "checkTitleMovePrev")  //Пагинация - проверка тайтла кнопки Перейти на предыдущую страницу
+    public void checkTitleMoveLast(){
+        WebElement titleMoveLastBtn = driver.findElement(By.xpath("//a[@class='last']"));
+            if (titleMoveLastBtn.getAttribute("title").equals("Перейти на последнюю страницу")) {
+                System.out.println("Пагинация. Тайтл кнопки перехода на последнюю страницу верен ="+titleMoveLastBtn.getAttribute("title"));
+            } else {
+                Assert.fail("Пагинация. Тайтл кнопки перехода на последнюю страницу НЕ верен !="+titleMoveLastBtn.getAttribute("title"));
+            }
+    }
+
+    @Test (dependsOnMethods = "checkTitleMoveLast")  //Пагинация - проверка тайтла кнопки Перейти на предыдущую страницу
+    public void checkTitleMoveNext(){
+        WebElement titleMoveNextBtn = driver.findElement(By.xpath("//a[@class='next']"));
+            if (titleMoveNextBtn.getAttribute("title").equals("Перейти на следующую страницу")) {
+                System.out.println("Пагинация. Тайтл кнопки перехода на следующую страницу верен ="+titleMoveNextBtn.getAttribute("title"));
+            } else {
+                Assert.fail("Пагинация. Тайтл кнопки перехода на следующую страницу НЕ верен !="+titleMoveNextBtn.getAttribute("title"));
+            }
+    }
+
+    @Test (dependsOnMethods = "checkTitleMoveNext") // Пагинация. Переход на посленюю и проверка залоченности кнопок
+    public void checkLockLastBtn() {
+        WebElement titleMoveLastBtn = driver.findElement(By.xpath("//a[@class='last']"));
+        WebElement titleMoveNextBtn = driver.findElement(By.xpath("//a[@class='next']"));
+
+        titleMoveLastBtn.click();
+
+            if (titleMoveLastBtn.isEnabled() && titleMoveNextBtn.isEnabled()) {
+                System.out.println("Пагинация. Верно - Кнопки перейти на последнюю и следующую страницы пагинации залочены");
+            } else {
+                Assert.fail("Пагинация. НЕ Верно - Кнопки перейти на последнюю и следующую страницы пагинации НЕ залочены");
+            }
+    }
+
+    @Test (dependsOnMethods = "checkLockLastBtn") //checkLockLastBtn Пагинация. Проверка количества строк объектов на последней странице
+    public void checkLastListObject10(){
+        driver.findElement(By.xpath("//a[@class='last']")).click();
+        getWhenVisible(By.xpath("//a[@class='first']"),20).isEnabled();
+        WebElement listNumber = driver.findElement(By.xpath("//select[@class='form-control']/option[@selected='selected']"));
+        Integer listNumberTitle = new Integer(listNumber.getText());
+        Integer residueResult = numberCountTableObjectTotal() % listNumberTitle;
+
+            if (numberListCountTable() == residueResult) {
+                System.out.println("Пагинация. Число строк на последней пагинации верное при списке в 10 объектов на страницу");
+            } else {
+                Assert.fail("Пагинация. Число строк на последней пагинации НЕ верное при списке в 10 объектов на страницу");
+            }
+    }
+
+    @Test (dependsOnMethods = "checkLastListObject10") // Пагинация. проверка количества страниц
+    public void checkNumberList10(){
+
+        WebElement countListObject = driver.findElement(By.xpath("//option[@selected='selected']"));
+        Integer countListObj =new  Integer (countListObject.getText());
+
+        WebElement paginationC = driver.findElement(By.xpath("//a[@disabled='disabled']/span"));
+        Integer paginationCount = new Integer(paginationC.getText());
+
+            if (numberCountTableObjectTotal()/countListObj+1 == paginationCount) {
+                System.out.println("Пагинация. Количество страниц пагинации верно при значении списка объектов=10");
+            } else {
+                Assert.fail("Пагинация. Количество страниц пагинации НЕ верно при значении списка объектов=10");
+            }
+    }
+
+    @Test (dependsOnMethods = "checkNumberList10") //
+    public void checkLastListObject20(){
+        driver.findElement(By.xpath("//select[@class='form-control']")).click();
+        getWhenVisible(By.xpath("//option[@value='1']"), 20).isEnabled();
+        WebElement countListTitle = driver.findElement(By.xpath("//option[@value='1']"));
+        countListTitle.click();
+        driver.navigate().refresh();
+        getWhenVisible(By.xpath("//a[@class='last']"),20).click();
+
+        WebElement listNumber = driver.findElement(By.xpath("//select[@class='form-control']/option[@selected='selected']"));
+        Integer listNumberTitle = new Integer(listNumber.getText());
+        Integer residueResult = numberCountTableObjectTotal() % listNumberTitle;
+
+            if (numberListCountTable() == residueResult) {
+                System.out.println("Пагинация. Число строк на последней пагинации верное при списке в 20 объектов на страницу");
+            } else {
+                Assert.fail("Пагинация. Число строк на последней пагинации НЕ верное при списке в 20 объектов на страницу");
+            }
+    }
+
+    @Test (dependsOnMethods = "checkLastListObject20") // Пагинация. проверка количества страниц
+    public void checkNumberList20(){
+
+        WebElement countListObject = driver.findElement(By.xpath("//option[@selected='selected']"));
+        Integer countListObj =new  Integer (countListObject.getText());
+
+        WebElement paginationC = driver.findElement(By.xpath("//a[@disabled='disabled']/span"));
+        Integer paginationCount = new Integer(paginationC.getText());
+
+        if (numberCountTableObjectTotal()/countListObj+1 == paginationCount) {
+            System.out.println("Пагинация. Количество страниц пагинации верно при значении списка объектов=20");
         } else {
-            Assert.fail("Число объектов по поиску Района НЕ верно числу объектов в БД с заданным районом "+municipalityIdCount+" != "+numberCountTableObjectTotal());
+            Assert.fail("Пагинация. Количество страниц пагинации НЕ верно при значении списка объектов=20");
         }
     }
+
+    @Test (dependsOnMethods = "checkLastListObject20") //
+    public void checkLastListObject50(){
+        driver.findElement(By.xpath("//select[@class='form-control']")).click();
+        getWhenVisible(By.xpath("//option[@value='2']"), 20).isEnabled();
+        WebElement countListTitle = driver.findElement(By.xpath("//option[@value='2']"));
+        countListTitle.click();
+        driver.navigate().refresh();
+        getWhenVisible(By.xpath("//a[@class='last']"),20).click();
+
+        WebElement listNumber = driver.findElement(By.xpath("//select[@class='form-control']/option[@selected='selected']"));
+        Integer listNumberTitle = new Integer(listNumber.getText());
+        Integer residueResult = numberCountTableObjectTotal() % listNumberTitle;
+
+            if (numberListCountTable() == residueResult) {
+                System.out.println("Пагинация. Число строк на последней пагинации верное при списке в 50 объектов на страницу");
+            } else {
+                Assert.fail("Пагинация. Число строк на последней пагинации НЕ верное при списке в 50 объектов на страницу");
+            }
+    }
+
+    @Test (dependsOnMethods = "checkLastListObject50") // Пагинация. проверка количества страниц
+    public void checkNumberList50(){
+
+        WebElement countListObject = driver.findElement(By.xpath("//option[@selected='selected']"));
+        Integer countListObj =new  Integer (countListObject.getText());
+
+        WebElement paginationC = driver.findElement(By.xpath("//a[@disabled='disabled']/span"));
+        Integer paginationCount = new Integer(paginationC.getText());
+
+        if (numberCountTableObjectTotal()/countListObj+1 == paginationCount) {
+            System.out.println("Пагинация. Количество страниц пагинации верно при значении списка объектов=50");
+        } else {
+            Assert.fail("Пагинация. Количество страниц пагинации НЕ верно при значении списка объектов=50");
+        }
+    }
+
 }
