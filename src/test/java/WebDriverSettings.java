@@ -36,7 +36,7 @@ public class WebDriverSettings {
         WebElement loginField = driver.findElement(By.id("username"));
         loginField.sendKeys("admin");
         WebElement passwordField = driver.findElement(By.id("password"));
-        passwordField.sendKeys("");
+        passwordField.sendKeys("admin");
         WebElement loginButton = driver.findElement(By.xpath("//button[@class='btn btn-lg btn-login btn-block']"));
 
         loginButton.click();
