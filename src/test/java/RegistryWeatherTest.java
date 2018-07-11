@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 public class RegistryWeatherTest extends WebDriverSettings {
 
-    private static final String URL_WEATHER = "http://ods2.fors.ru:9090/dev/registry?2&code=registryForm&bk=ODH/MSNOW/Weather";
+    private static final String URL_WEATHER = "url";
 
     @Test
     public void checkTitleRegistryWeather() {
