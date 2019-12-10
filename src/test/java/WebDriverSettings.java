@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 public class WebDriverSettings {
 
-    private static final String APPLICATION_LOGIN_URL = "http://ods2.fors.ru:9090/dev/auth";
+    private static final String APPLICATION_LOGIN_URL = "http://web.web.ru:9090/dev/auth";
 
     protected ChromeDriver driver;
     private SessionFactory sessionFactory;
@@ -34,9 +34,9 @@ public class WebDriverSettings {
 
         //Воод юзернейма и логина
         WebElement loginField = driver.findElement(By.id("username"));
-        loginField.sendKeys("admin");
+        loginField.sendKeys("web");
         WebElement passwordField = driver.findElement(By.id("password"));
-        passwordField.sendKeys("admin");
+        passwordField.sendKeys("web");
         WebElement loginButton = driver.findElement(By.xpath("//button[@class='btn btn-lg btn-login btn-block']"));
 
         loginButton.click();
